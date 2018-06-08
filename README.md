@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ihma
 
 > A Vue.js project
@@ -19,3 +20,6 @@ npm run build --report
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+=======
+# IHMA
+>>>>>>> d24494e7a755b472aee075715e9e46d930f857bc

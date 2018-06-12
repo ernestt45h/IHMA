@@ -15,7 +15,7 @@ const Home = ()=>import('../components/Home')
 //Features 
 const Appointments = ()=>import('../components/Appointments/Main')
 const SymptomChecker = ()=>import('../components/SymptomChecker/Main')
-const Prescriptions = ()=>import('../components/Prescriptions/')
+const Prescriptions = ()=>import('../components/Prescriptions/Main')
 
 Vue.use(Router)
 
@@ -52,7 +52,6 @@ export default new Router({
     // App
     {
       path: '/',
-      name: 'App',
       component: App,
       beforeEnter: async (to, from, next) => {
           var str = await store;
@@ -61,9 +60,9 @@ export default new Router({
       },
       children:[
         {name: 'Home', path: '/', component: Home},
-        {name: 'Home', path: '/appointments', component: Appointments},
-        {name: 'Home', path: '/diagnosis', component: SymptomChecker},
-        {name: 'Home', path: '/prescriptions', component: Prescriptions},
+        {name: 'Appointments', path: '/appointments', component: Appointments},
+        {name: 'Diagnosis', path: '/diagnosis', component: SymptomChecker},
+        {name: 'Prescriptions', path: '/prescriptions', component: Prescriptions},
 
       ]
     }

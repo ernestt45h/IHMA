@@ -17,7 +17,7 @@
 					</span>
                 </router-link>
             </li>
-            <li v-for="link in navs" :key="link">
+            <li v-for="link in navs" :key="link.id">
                 <router-link :to="'/'+link.sub_name">
                     <i :class="link.fa_icon" class="nav_icon"></i>
                     <span class="nav-text text-capitalize">

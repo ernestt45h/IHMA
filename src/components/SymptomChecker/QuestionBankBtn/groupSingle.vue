@@ -4,13 +4,11 @@
         class="btn btn-info col-sm-12"
         type="button" 
         :name="item.id"
-        v-for="choice in item.choices"
         @click="newEvedence({
             id: item.id,
             choice_id: 'present'
-        })"               
-        :key="choice.id"
-        >Yes</button>
+        })"
+        >{{item.name}}</button>
 
         <button class="btn btn-info col-sm-12"
          @click="newEvedence({

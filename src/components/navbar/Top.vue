@@ -155,8 +155,8 @@ export default{
 </script>
 <style scoped>
     #logo{
-        padding-top: 20px; 
-        width: 150px;
+        padding-top: 10px; 
+        width: 100px;
     }
      @media(max-width:480px){
         #logo{

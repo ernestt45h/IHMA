@@ -193,8 +193,7 @@ export default {
     }
 
     .cal{
-        background: #fff;
-        min-height:400px; 
+        background: #fff; 
         box-shadow: 0px 2px 3px 1px #ddd;
     }
 
@@ -212,6 +211,16 @@ export default {
     .cal-header .month-year{
         font-size: 30px; 
     }
+
+    td{
+        cursor: pointer;
+    }
+
+    td:hover{
+        background: #333;
+        color: white;
+    }
+    
 
 </style>
 

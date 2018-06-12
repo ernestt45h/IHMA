@@ -2,7 +2,7 @@
     <vs-popup class="holamundo"  vs-title="Who is this diagnosis for?" :vs-active="active" @vs-cancel="active=false">
         <h1>
             <vs-button @click="isSomeone = true" vs-type="warning-line-down">Someone</vs-button>
-            <vs-button vs-type="success-line-down" class="pull-right">Myself</vs-button>
+            <vs-button vs-type="success-line-down" @click="getUser" class="pull-right">Myself</vs-button>
         </h1> 
         <vs-popup vs-title="Details" :vs-active="isSomeone" @vs-cancel="isSomeone=false">
             <vs-row vs-w="12">
@@ -29,8 +29,11 @@
 export default {
     name: 'set-someone',
     watch:{
-        active: (val)=>{
+        active(val){
             this.active = val
+            if(!val){
+                this.$emit('canceled')
+            }
         }
     },
     props: ['active'],
@@ -54,6 +57,10 @@ export default {
                 gender: this.gender,
                 type: 'guest'
             })
+        },
+
+        getUser(){
+            
         }
     }
 }

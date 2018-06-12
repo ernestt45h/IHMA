@@ -1,5 +1,5 @@
 <template>
-    <div id="up-comming" class="col-sm-12 col-md-6 col-xl-8 col-lg-6">
+    <div id="up-comming" class="col-sm-12 col-md-5 col-xl-7 col-lg-6">
         <div class="card">
             <div class="card-header bg-info">
                 <h1 class="text-light">Appointments</h1>

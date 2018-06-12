@@ -81,10 +81,10 @@ export default {
     name: 'login',
     data(){
         return {
-            username: 'ernestt45h',
-            email: 'ernest.hayford@bluecrest.edu.gh',
-            password: 'Jimjam241',
-            repassword: 'Jimjam241',
+            username: '',
+            email: '',
+            password: '',
+            repassword: '',
             success_popup: true, 
             error: '',
             validos: {

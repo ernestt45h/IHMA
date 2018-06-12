@@ -1,8 +1,8 @@
 <template>
-    <div class="">
+    <div class="container">
         <div class="row">
-            <calendar class="calendar col-sm-12 col-md-6 col-xl-4 col-lg-6 " :events="events"></calendar>
-            <list :events="events"></list>
+            <calendar class="calendar col-sm-12 col-md-7 col-xl-5 col-lg-6 " :events="events"></calendar>
+            <list  :events="events"></list>
         </div>
         <!-- Cancel Appointment modal -->
         <div class="modal fade" id="cancelAppointment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

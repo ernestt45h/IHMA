@@ -67,6 +67,10 @@
         background: #90e436;
     }
 
+    .orange{
+        background: rgb(255, 115, 35);
+    }
+
     .sub-info a{
         color: white !important;
     }

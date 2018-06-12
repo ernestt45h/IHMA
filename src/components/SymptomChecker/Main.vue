@@ -35,7 +35,7 @@
                 </div>
             </div>
         </div>
-        <choice-popup :active="popup.default" @genderAgeSetted="setStatus"></choice-popup>
+        <choice-popup :active="popup.default" @genderAgeSetted="setStatus" @canceled="popup.default = false"></choice-popup>
     </div>
 </template>
 <script>
@@ -75,9 +75,7 @@ export default {
   },
 
 
-  mounted(){
-      //this.popup.default = true
-  },
+
   methods:{
 
         reset(bool){
@@ -90,7 +88,7 @@ export default {
             this.userType = ''
         },
 
-        popupSelector(){
+        popupSelector(bool){
             this.popup.default = true
         },
 
@@ -108,12 +106,20 @@ export default {
                 sex: this.gender,
                 age: this.age
             }).then(doc=>{
+                if(!doc.data.error){
+                    doc = doc.data
+                }else this.$vs.notify({
+                    text: doc.data.error,
+                    color: 'warning',
+                })
 
+                console.log(doc)
             }).catch(err=>{
                 this.$vs.notify({
                     text: 'Please check your internet connection and try again',
                     color: 'danger',
-                    title: 'Connection Error'
+                    title: 'Connection Error',
+                    time: 4000
                 })
             })
             else this.popupSelector()

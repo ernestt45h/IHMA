@@ -13,6 +13,7 @@ import 'vuesax/dist/vuesax.css'
 import './assets/css/style.css'
 import 'font-awesome/css/font-awesome.min.css'
 
+
 Vue.use(Vuex)
 Vue.use(iview)
 

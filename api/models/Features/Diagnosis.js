@@ -16,7 +16,7 @@ route.post('/', (req,res)=>{
         }else if(body.text){
             parser(res,body)
         }else{
-            res.send('no data sent') 
+            res.json({ error: 'no data sent'}) 
             console.log(body)
         }
     }

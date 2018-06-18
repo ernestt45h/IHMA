@@ -1,9 +1,10 @@
 <template>
     <div>
-        <h3 class="question">{{question.text | captilize}}</h3>        
-        <div v-if="question.type">
-            <div v-if="question.type === 'single'">
-                <single :item="question.items" @clicked="addEvidence"></single>
+        <h3 class="question">{{question.text}}</h3>
+        <div class="clearfix"></div>               
+        <template v-if="question.type">
+            <div class="col-12" v-if="question.type === 'single'">
+                <single :item="question.items[0].choices" @clicked="pushSingle"></single>
             </div>
             <div v-else-if="question.type == 'group_single'">
                 <group-single :item="question.items" @clicked="addEvidence"></group-single>  
@@ -12,7 +13,7 @@
             <div v-else-if="question.type == 'group_multiple'">
                 <group-multiple :item="question.items" @clicked="addEvidence"></group-multiple>
             </div>
-        </div>
+        </template>
     </div>  
 </template>
 <script>
@@ -21,7 +22,7 @@ import GroupSingle from './QuestionBankbtn/GroupSingle'
 import GroupMultiple from './QuestionBankbtn/GroupMultiple'
 
 export default {
-    name: 'question-bank',
+    name: 'choices',
     props: ['question'],
     components:{Single, GroupSingle, GroupMultiple},
     data(){
@@ -32,11 +33,23 @@ export default {
     },
     methods:{
         addEvidence(payload){
+              //set evidence into an array object if not set
+            if(!this.evidence && payload){
+                this.evidence = []
+            }
             this.evidence.push(payload)
         },
 
-        doSomething(){
+        go(){
+           this.$emit('go', this.evidence) 
+        },
 
+        pushSingle(payload){
+            this.addEvidence({
+                id: this.question.items[0].id,
+                choice_id: payload
+            })
+            this.go()
         },
     }
 }

@@ -31,16 +31,6 @@ export default {
     }
   },
   components:{TopNav,SideNav},
-  created(){
-    var connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-    var type = connection.type;
-
-    function updateConnectionStatus() {
-      console.log(connection);
-    }
-
-    connection.addEventListener('change', updateConnectionStatus);
-  }
 }
 </script>
 <style>

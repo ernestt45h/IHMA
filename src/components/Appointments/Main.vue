@@ -14,7 +14,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <!--app-modal :appointment="cancelingAppointment" @confirmed="cancelAppointment($event)"  class="modal-body"></app-modal-->
+                    <app-modal :appointment="cancelingAppointment" @confirmed="cancelAppointment($event)"  class="modal-body"></app-modal>
                 </div>
             </div>
         </div>
@@ -24,12 +24,12 @@
     //import {host} from "../../config/host";
     import List from "./list"
     import Calendar from "./calendar.vue";
-    //import AppModal from "./includes/AppointmentModal.vue"
+    import AppModal from "./AppointmentModal.vue"
     import axios from "axios"
 
     export default {
         name: 'appointments',
-        components:{Calendar, List},
+        components:{Calendar, List, AppModal},
         data(){
             return{
                 events: '',
@@ -49,7 +49,7 @@
                         start: ''
                     }
                 },
-                token: this.$store.getters.getUser.token
+                token: this.$store.getters.token
             }
         },
         methods:{

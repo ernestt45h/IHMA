@@ -2,7 +2,7 @@ const route = require('express').Router()
 const authToken = require('../JwtAuth')
 const nf = require('../../config/secrets').nf
 const host = nf.host
-const api_id = nf.app_id
+const api_id = nf.app_id 
 const api_key = nf.app_key
 const axios = require('axios')
 
@@ -48,6 +48,7 @@ const diagnose = function(res,body, evidence){
     }).catch(err=>{
         console.log('\n\n\n\n', body)        
         res.sendStatus(500)
+        console.log(err)
     })
 }
 

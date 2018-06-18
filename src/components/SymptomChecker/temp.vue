@@ -225,8 +225,7 @@ export default {
                     console.log(this.evidence)
                 }
             }
-            this.addEvidence(evidence)
-                    console.log(this.evidence)            
+            this.addEvidence(evidence)         
             this.parserEvidence()
         }
             

@@ -1,21 +1,14 @@
 <template>
     <div>
-        <div class="clearfix"></div>
-            <div>
-                <button 
-                class="btn btn-info col-sm-4"
-                type="button" 
-                :name="item.id"  
-                v-for="choice in item.choices"
-                @click="buttonClicked({
-                    id: item.id,
-                    choice_id: choice.id
-                })"                                    
-                :value="choice.id"
-                :key="choice.id"
-                >{{ choice.label }}</button>
-            </div>
-        </div>
+        <button 
+        class="btn btn-info col-lg-12"
+        type="button"  
+        v-for="choice in item"
+        @click="buttonClicked(choice.id)"                                    
+        :value="choice.id"
+        :key="choice.id"
+        >{{ choice.label }}</button>
+    </div>
 </template>
 
 <script>

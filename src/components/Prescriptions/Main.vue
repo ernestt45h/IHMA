@@ -1,24 +1,45 @@
 <template>
     <div class="container grid-info">
-    <div class="row">
-        <div class="col-md-4">
-            <div class="list-group" id="list-tab" role="tablist">
-            <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Morning</a>
-            <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Afternoon</a>
-            <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Evening</a>
-            <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Other</a>
-            </div>
-        </div>
-        <div class="col-md-8">
-            <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">...</div>
-            <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">...</div>
-            <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>
-            <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>
-            </div>
+    <ul class="nav nav-pills justify-content-center">
+        <li class="nav-item">
+            <button class="nav-link" @click="time = 'morning'; activepill = 0 " :class="{active: time == 'morning'}" type="button">Morning</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link " @click="time = 'noon'; activepill = 0" type="button">Noon</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link " @click="time = 'evenning'; activepill = 0" type="button">Evening</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link disabled" :class="{active: time == 'interval'}"  @click="time = 'interval'; activepill = 0" type="button">Others</button>
+        </li>
+    </ul>
+    <div class="card col-12">
+        <ul class="list-group" v-if="showPrecription(time)[0]">
+            <li v-for="(item, index) in showPrecription(time)" :key="index" class="list-group-item" >
+                <a :href="'#'+index" :id="index" class="list-group-item list-group-item-action flex-column align-items-start" 
+                    :class="{'active' : activepill == index}" @click="activepill = index">
+                    <div class="d-flex w-100 justify-content-between">
+                    <h3 class="mb-1">{{item.name | captilize}}</h3>
+                    <small>Take {{item.intake}} tablets</small>
+                    </div>
+                    <p class="mb-1 text-warning text-capitalize">{{item.description}}
+                    </p>
+                    <div class="mb-1 text-warning text-capitalize" v-if="item['interval-description']">{{item['interval-description']}}</div>
+                    <small>Keep Taking Till: <i class="fa fa-clock-o"></i> {{item.duration | simpleDate}} 
+                        <template v-if="item.interval">@ {{item.interval | captilize}} hr intervals</template>
+                    </small>
+                </a>
+            </li>
+        </ul>
+        <div v-else class="card-body text-center">
+             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                    <h1 class="mb-1"> <i class="fa fa-frown-o"></i> Sorry, No prescriptions at this time of the day</h1>
+                    </div>
+              </a>
         </div>
     </div>
-    <button class="btn" @click="testloader">loader</button>
     </div>
 </template>
 
@@ -31,9 +52,27 @@ export default {
     data(){
         return{
             prescriptions: '',
+            time: 'morning',
+            activepill: 0,
         }
     },
+    computed:{
+        
+    },
     methods:{
+
+        timeCalculator(item){
+            if(item.time == 'interval') return `every ${item.interval} hr intervals`
+        },
+
+        showPrecription(time){
+            let items = []
+            for(let prescription of this.prescriptions){
+                if (prescription.time == time) items.push(prescription)  
+            }
+            return items
+        },
+
         testloader(){
             this.$vs.loading({color: 'success'})
             setTimeout(()=>{
@@ -43,12 +82,13 @@ export default {
     },
     created(){
         this.$vs.loading({color: 'success'})
-        axios.get(host.ihma).then(()=>{
-            console.log('hello')
+        axios.get(host.ihma+ '/prescription').then((doc)=>{
+            this.prescriptions = doc.data 
+            console.log(this.prescriptions)
             this.$vs.loading.close()
             
-        }).catch(()=>{
-            console.log('not')    
+        }).catch(err=>{
+            console.log(err)    
             this.$vs.loading.close()
         })
     }
@@ -60,5 +100,6 @@ export default {
 .prescriptions{
     border-right: 1px #333 solid; 
 }
+
 </style>
 

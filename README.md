@@ -4,6 +4,8 @@
 
 ## Build Setup
 
+before using install mongodb and run the mongodb server
+
 ``` bash
 # install dependencies
 npm install

@@ -6,7 +6,7 @@
             </div>
             
             <search-bar></search-bar>
-
+           
             <div class="header-right">
                 <div class="profile_details_left">
                     <div class="header-right-left">
@@ -149,14 +149,13 @@ export default{
     }
     },
     methods:{
-    
     },
 }
 </script>
 <style scoped>
     #logo{
         padding-top: 10px; 
-        width: 100px;
+        width: 150px;
     }
      @media(max-width:480px){
         #logo{

@@ -62,6 +62,7 @@ export default new Router({
         {name: 'Home', path: '/', component: Home},
         {name: 'Appointments', path: '/appointments', component: Appointments},
         {name: 'Diagnosis', path: '/diagnosis', component: SymptomChecker},
+        {name: 'Diagnosis', path: '/symptom_checker', component: SymptomChecker},
         {name: 'Prescriptions', path: '/prescriptions', component: Prescriptions},
 
       ]

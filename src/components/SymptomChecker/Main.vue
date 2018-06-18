@@ -7,34 +7,44 @@
                     <diaga :isLoading="isLoading" class="pull-right" id="diaga" ></diaga>
                 </div>
                 <div v-if="!isLoading" class="text col-sm-9 col-md-9">
-                    <question-bank :questions="question" v-if="question"></question-bank>
+                    <choices :question="question" v-if="question" @go="parseAndGo"></choices>
                     <div v-else>
-                        <h3 class="question">Hi I'm Lua, How may I help</h3>
+                        <h3 class="question">Hi I'm Aihma, How may I help</h3>
                         <input @keypress.enter="Diagnose" v-model="parser" placeholder="eg. I feel dizzy" class="answer" type="search" autofocus>
                         <button @click="Diagnose" class="btn btn-info btn-raised">go</button>
                     </div>
                 </div>
-            </div>            
-            <div class="card col-md-4">
-                <h3 class="card-header center">Possible Diagnosis</h3>
-                <ul v-if="conditions"  class="list-group card-body">
-                    <li v-for="condition in conditions" :key="condition.id" class="list-group-item"><p>
-                        {{condition.name}}</p><p class="text-muted pull-right" :class="{'alert-success': condition.probability > .9}"> {{ condition.probability * 100 }}%</p>
-                    </li>
-                    <button class="btn btn-raised btn-info" @click="restartDiag">Restart diagnosis</button>
-                </ul>
-                <div v-else>
-                    <vs-alert vs-active="true">
-                        <h1 class="text-center"><i class="fa fa-info-circle"></i></h1>
-                        <h6>While our content is meticulously assembled and carefully curated by
-                            a board of medical experts, our solution is intended for informational
-                            and educational purposes only and should not be treated as a doctor's
-                            advice, a medical consultation, or a diagnosis.
-                        </h6>
-                    </vs-alert>
-                </div>
+            </div>
+            <div class="col-md-4">          
+                <vs-card>
+                    <vs-card-header vs-background-color="#00bcd4" vs-title="Possible Diagnosis" >
+                        <i class="fa fa-stethoscope"></i>
+                    </vs-card-header>
+                    <vs-card-body>
+                    <ul v-if="conditions"  class="list-group card-body">
+                        <li v-for="condition in conditions" :key="condition.id" class="list-group-item">
+                            <div class="row">
+                                <p class="col-9">{{condition.name}}</p>
+                                <p class="text-muted col-3" :class="{'alert-success': condition.probability > .9}"> {{ condition.probability * 100 }}%</p>
+                            </div>
+                        </li>
+                        <button class="btn btn-raised btn-info" @click="restartDiag">Restart diagnosis</button>
+                    </ul>
+                    <div v-else>
+                        <vs-alert vs-active="true">
+                            <h1 class="text-center"><i class="fa fa-info-circle"></i></h1>
+                            <h6>While our content is meticulously assembled and carefully curated by
+                                a board of medical experts, our solution is intended for informational
+                                and educational purposes only and should not be treated as a doctor's
+                                advice, a medical consultation, or a diagnosis.
+                            </h6>
+                        </vs-alert>
+                    </div>
+                    </vs-card-body>
+                </vs-card>
             </div>
         </div>
+        {{evidences}} evidences
         <choice-popup :active="popup.default" @genderAgeSetted="setStatus" @canceled="popup.default = false"></choice-popup>
     </div>
 </template>
@@ -44,13 +54,13 @@ import axios from "axios"
 import host from "../../../config/host"
 const ChoicePopup = ()=>import('./ChoisePopup')
 const GuestMode = ()=>import('./GuestMode')
-const QuestionBank = ()=>import('./QuestionBank')
+const Choices = ()=>import('./Choices')
 
 
 export default {
 
-  name: 'lua',
-  components: {Diaga, ChoicePopup, GuestMode, QuestionBank},
+  name: 'Aihma',
+  components: {Diaga, ChoicePopup, GuestMode, Choices},
   data(){
       return {
           isLoading: false,
@@ -70,6 +80,7 @@ export default {
 
           conditions: '',
           question: '',
+          evidences: '',
           parser: ''
       }
   },
@@ -79,12 +90,10 @@ export default {
   methods:{
 
         reset(bool){
-            console.log('resetting ', this.userType)            
-            this.gender = ''
+            console.log('resetting ', this.userType)   
+            this.restartDiag()         
             this.age = ''
-            this.question = ''
             this.conditions = ''
-            this.parser = ''
             this.userType = ''
         },
 
@@ -99,29 +108,95 @@ export default {
             this.popup.default = false
         },
 
-        Diagnose(){
-            if(this.gender && this.age)
-            axios.post(host.ihma + '/diagnosis', {
-                text: this.parser,
-                sex: this.gender,
-                age: this.age
-            }).then(doc=>{
-                if(!doc.data.error){
-                    doc = doc.data
-                }else this.$vs.notify({
-                    text: doc.data.error,
-                    color: 'warning',
-                })
+        parseAndGo(payload){
+            if(!this.evidences && payload){
+                this.evidences = []
+            }
 
-                console.log(doc)
-            }).catch(err=>{
-                this.$vs.notify({
-                    text: 'Please check your internet connection and try again',
-                    color: 'danger',
-                    title: 'Connection Error',
-                    time: 4000
+            for (let evidence of payload){
+                   //set evidence into an array object if not set
+                for(var i = 0; i < this.evidences.length; i++){
+                    if(this.evidences[i].id === evidence.id){
+                        this.evidences.splice(i)
+                    }
+                }
+                this.evidences.push(evidence)            
+            }
+
+            if(this.gender && this.age){
+                this.isLoading = true
+                axios.post(host.ihma + '/diagnosis', {
+                    evidence: this.evidences,
+                    sex: this.gender,
+                    age: this.age
+                }).then(doc=>{
+                    this.isLoading = false
+                    if(!doc.data.error){
+                        doc = doc.data
+                        console.log("result", doc)
+                        if(doc){
+                            this.conditions = doc.conditions
+                            this.question = doc.question
+                            this.evidences = doc.evidences
+                        }
+                    }else this.$vs.notify({
+                        text: doc.data.error,
+                        color: 'warning',
+                    })
+                }).catch(err=>{
+                    this.isLoading = false
+                    this.$vs.notify({
+                        text: 'Please check your internet connection and try again',
+                        color: 'danger',
+                        title: 'Connection Error',
+                        time: 4000
+                    })
                 })
-            })
+            }
+            else this.popupSelector()
+            
+        },
+
+        restartDiag(){
+            this.evidence = ''
+            this.question =  ''
+            this.parser = ''
+            this.conditions = ''
+        },
+
+
+        Diagnose(){
+            if(this.gender && this.age){
+                this.isLoading = true
+                axios.post(host.ihma + '/diagnosis', {
+                    text: this.parser,
+                    evidence: this.evidences,
+                    sex: this.gender,
+                    age: this.age
+                }).then(doc=>{
+                    this.isLoading = false
+                    if(!doc.data.error){
+                        doc = doc.data
+                        console.log("result", doc)
+                        if(doc){
+                            this.conditions = doc.conditions
+                            this.question = doc.question
+                            this.evidences = doc.evidences
+                        }
+                    }else this.$vs.notify({
+                        text: doc.data.error,
+                        color: 'warning',
+                    })
+                }).catch(err=>{
+                    this.isLoading = false
+                    this.$vs.notify({
+                        text: 'Please check your internet connection and try again',
+                        color: 'danger',
+                        title: 'Connection Error',
+                        time: 4000
+                    })
+                })
+            }
             else this.popupSelector()
         }
   }

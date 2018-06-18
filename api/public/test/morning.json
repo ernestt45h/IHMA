@@ -7,7 +7,15 @@
         "time": "morning"
     },
     {
-        "name" : "Coatem",
+        "name" : "pregnisolum",
+        "dosage": "25mg",
+        "intake" : "4",
+        "duration" : "2018-06-12 11:02:05.857Z",
+        "time": "morning",
+        "description": "please dont over use it"
+    },
+    {
+        "name" : "Coartem",
         "dosage": "50mg",
         "intake" : "1",
         "duration" : "2018-06-12 11:02:05.857Z",

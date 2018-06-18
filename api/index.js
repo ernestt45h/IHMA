@@ -24,17 +24,15 @@ mongoose.connect(db.name,(err)=>{
     const Activate = require('./models/activate')
     const PermissionAdder = require('./models/Features/PermissionAdder')
     const Diagnosis = require('./models/Features/Diagnosis')
+    const Prescription = require('./models/Features/Prescriptions')
     
-    
-    app.get('/', function(req, res){
-        res.send('hello world');
-      });
     
     app.use('/login', Login)
     app.use('/signup', Signup)
     app.use('/activate', Activate)
     app.use('/permission-adder', PermissionAdder)
     app.use('/diagnosis', Diagnosis)
+    app.use('/prescription', Prescription)
       
     app.listen(80);
 });

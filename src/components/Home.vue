@@ -36,8 +36,6 @@
             isView:(perms)=>{
                 for (var i = 0; i < perms.length; i++){
                     if (perms[i] === "read"){
-                        console.log(perms)
-                        
                         return true
                     }
                 }
@@ -68,7 +66,7 @@
     }
 
     .orange{
-        background: rgb(255, 115, 35);
+        background: rgb(255, 104, 16);
     }
 
     .sub-info a{

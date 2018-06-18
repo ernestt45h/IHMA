@@ -95,6 +95,7 @@ export default {
             this.age = ''
             this.conditions = ''
             this.userType = ''
+            
         },
 
         popupSelector(bool){
@@ -158,7 +159,7 @@ export default {
         },
 
         restartDiag(){
-            this.evidence = ''
+            this.evidences = ''
             this.question =  ''
             this.parser = ''
             this.conditions = ''

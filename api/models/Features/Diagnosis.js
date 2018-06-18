@@ -32,7 +32,8 @@ route.post('/', (req,res)=>{
 
 //Functions to help
 //Diagnosis function
-const diagnose = function(res,body, evidence){
+const diagnose = function(res, body, evidence){
+    console.log('asdasdasdasdasdasdasd', body)
     axios.post(host+'/diagnosis',body,{
         headers:{
             app_id: api_id,

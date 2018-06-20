@@ -1,5 +1,5 @@
 <template>
-    <div id="topnav">
+    <div id="topnav" :class="{hidden: hidden}">
         <section class="title-bar">
             <div class="logo">
                 <router-link to="/"><img id="logo" src="../../assets/img/logo.png" alt="" /></router-link>
@@ -137,6 +137,7 @@
     </div>
 </template>
 <script>
+import {bus} from '../../main'
 const SearchBar = ()=>import('./Search')
 const Mails = ()=>import('./notification/drawer')
 
@@ -145,11 +146,17 @@ export default{
     components:{SearchBar, Mails},
     data(){
     return{
-        search: ''
+        search: '',
+        hidden: false
     }
     },
-    methods:{
-    },
+    created(){
+        bus.$on('hide_top_nav', (bool)=>{
+            if(bool){
+                this.hidden = bool
+            }else this.hidden = false
+        })
+    }
 }
 </script>
 <style scoped>
@@ -172,5 +179,9 @@ export default{
     #topnav{
         background: #fff;
         padding-bottom: 10px; 
+    }
+
+    .hidden{
+        display: none;
     }
 </style>

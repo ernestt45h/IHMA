@@ -40,8 +40,16 @@ const diagnose = function(res, body, evidence){
             app_key: api_key
         }
     }).then((response)=>{
+        console.log(response)
+        let conditions = []
+        let count = 0
+        for(let condition of response.data.conditions){
+            conditions.push(condition)
+            count++
+            if(count > 10) break
+        }
         if(response){
-            if (evidence) response.data.evidences = evidence
+            if (evidence) response.data.conditions = conditions
             res.json(response.data)
         }else{
             res.send('500')
@@ -55,7 +63,13 @@ const diagnose = function(res, body, evidence){
 
 //first phase parser
 const parser = function(res,body){
-    axios.post(host+'/parse',body,{
+    if(body.text.toLowerCase() == "i'm aihma")
+        res.json({
+            question: {
+                text: " no, i'm Aihma :)"
+            }, 
+        })
+    else axios.post(host+'/parse',body,{
         headers:{
             app_id: api_id,
             app_key: api_key

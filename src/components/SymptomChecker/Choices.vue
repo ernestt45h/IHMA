@@ -11,7 +11,7 @@
             </div>
             <!--Will fix you later-->
             <div v-else-if="question.type == 'group_multiple'">
-                <group-multiple :item="question.items" @clicked="addEvidence"></group-multiple>
+                <group-multiple :item="question.items" @clicked="pushGroupMultiple"></group-multiple>
             </div>
         </template>
     </div>  
@@ -42,6 +42,20 @@ export default {
 
         go(){
            this.$emit('go', this.evidence) 
+        },
+
+        pushGroupMultiple(payload){
+            this.evidence = ''
+            for(let item of payload){
+                console.log(item)
+                this.addEvidence({
+                    id: item.id,
+                    choice_id: item.choice_id
+                })
+            }
+
+            this.go()
+            
         },
 
         pushSingle(payload){

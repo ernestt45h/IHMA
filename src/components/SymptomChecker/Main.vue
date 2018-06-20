@@ -2,7 +2,7 @@
     <div class="container bg-light">
         <guest-mode :isGuest="userType == 'guest'" @guestmodeoff="reset"></guest-mode>
         <div class="row">
-            <div id="description" class="row col-md-8 text-center">
+            <div id="description" class="row col-md-7 col-lg-8 text-center">
                 <div class="col-sm-3 col-md-3">
                     <diaga :isLoading="isLoading" class="pull-right" id="diaga" ></diaga>
                 </div>
@@ -15,17 +15,17 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">          
+            <div class="col-md-5 col-lg-4">          
                 <vs-card>
                     <vs-card-header vs-background-color="#00bcd4" vs-title="Possible Diagnosis" >
                         <i class="fa fa-stethoscope"></i>
                     </vs-card-header>
                     <vs-card-body>
-                    <ul v-if="conditions"  class="list-group card-body">
+                    <ul v-if="conditions"  class="list-group ">
                         <li v-for="condition in conditions" :key="condition.id" class="list-group-item">
                             <div class="row">
                                 <p class="col-9">{{condition.name}}</p>
-                                <p class="text-muted col-3" :class="{'alert-success': condition.probability > .9}"> {{ condition.probability * 100 }}%</p>
+                                <p class="text-muted col-3" :class="{'alert-success': condition.probability > .9}"> {{ (condition.probability * 100).toFixed(2)  }}%</p>
                             </div>
                         </li>
                         <button class="btn btn-raised btn-info" @click="restartDiag">Restart diagnosis</button>
@@ -44,7 +44,6 @@
                 </vs-card>
             </div>
         </div>
-        {{evidences}} evidences
         <choice-popup :active="popup.default" @genderAgeSetted="setStatus" @canceled="popup.default = false"></choice-popup>
     </div>
 </template>
@@ -110,6 +109,7 @@ export default {
         },
 
         parseAndGo(payload){
+            console.log(payload)
             if(!this.evidences && payload){
                 this.evidences = []
             }
@@ -138,7 +138,6 @@ export default {
                         if(doc){
                             this.conditions = doc.conditions
                             this.question = doc.question
-                            this.evidences = doc.evidences
                         }
                     }else this.$vs.notify({
                         text: doc.data.error,

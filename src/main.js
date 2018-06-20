@@ -38,6 +38,8 @@ Vue.use(Vuex)
 Vue.use(iview)
 
 
+export const bus = new Vue()
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

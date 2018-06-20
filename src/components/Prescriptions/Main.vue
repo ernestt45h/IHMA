@@ -14,7 +14,7 @@
             <button class="nav-link disabled" :class="{active: time == 'interval'}"  @click="time = 'interval'; activepill = 0" type="button">Others</button>
         </li>
     </ul>
-    <div class="card col-12">
+    <div class="card col-12" v-if="isloaded">
         <ul class="list-group" v-if="showPrecription(time)[0]">
             <li v-for="(item, index) in showPrecription(time)" :key="index" class="list-group-item" >
                 <a :href="'#'+index" :id="index" class="list-group-item list-group-item-action flex-column align-items-start" 
@@ -35,9 +35,10 @@
         <div v-else class="card-body text-center">
              <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between">
-                    <h1 class="mb-1"> <i class="fa fa-frown-o"></i> Sorry, No prescriptions at this time of the day</h1>
+                    <h1 class="mb-1"> <i class="fa" :class="error_icon"></i> {{error}}</h1>
                     </div>
               </a>
+              <button @click="loadPrescriptions" v-if="reload" class="btn btn-danger"><i class="fa fa-refresh"></i> Reload</button>
         </div>
     </div>
     </div>
@@ -54,6 +55,10 @@ export default {
             prescriptions: '',
             time: 'morning',
             activepill: 0,
+            isloaded: false,
+            error: 'Sorry, No prescriptions at this time of the day',
+            error_icon: 'fa-frown-o',
+            reload: false
         }
     },
     computed:{
@@ -78,19 +83,27 @@ export default {
             setTimeout(()=>{
                 this.$vs.loading.close()
             }, 4000)
+        },
+
+        loadPrescriptions(){
+            this.$vs.loading({color: 'success'})
+            axios.get(host.ihma+ '/prescription').then((doc)=>{
+                this.prescriptions = doc.data 
+                console.log(this.prescriptions)
+                this.$vs.loading.close()
+                this.isloaded = true
+            }).catch(err=>{
+                console.log(err)    
+                this.$vs.loading.close()
+                this.error_icon = 'fa-globe'
+                this.error = 'Connection Error'
+                this.reload = true
+                this.isloaded = true
+            })
         }
     },
     created(){
-        this.$vs.loading({color: 'success'})
-        axios.get(host.ihma+ '/prescription').then((doc)=>{
-            this.prescriptions = doc.data 
-            console.log(this.prescriptions)
-            this.$vs.loading.close()
-            
-        }).catch(err=>{
-            console.log(err)    
-            this.$vs.loading.close()
-        })
+        this.loadPrescriptions()
     }
 }
 </script>

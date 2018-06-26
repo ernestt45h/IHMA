@@ -5,7 +5,7 @@ const Feature = mongoose.Schema({
     name: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
     },
     access_point: String,
     sub_name: String,
@@ -14,10 +14,12 @@ const Feature = mongoose.Schema({
         type: String,
         enum: ['self', 'patient', 'doctor', 'nurse', 'pharmacist', 'laboratorist', 'admin', 'developer', 'super_admin', 'accountant']
     },
-    type: {
+    payment_period: {
         type: String,
-        enum: ['free', 'monthly', 'anually']
-    }
+        enum: ['free', 'monthly', 'anually'],
+        default: 'monthly'
+    },
+    price: String
 })
 
 module.exports = mongoose.model('feature', Feature)

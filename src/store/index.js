@@ -15,6 +15,11 @@ const store = new Vuex.Store({
         first_name: state=>{
             if(state.user.name) return state.user.name.first || ''
             else return ''
+        },
+        isUser: state=>{
+            if(state.user.token){
+                return true
+            }else return false
         }
     },
     mutations:{

@@ -1,5 +1,5 @@
 <template>
-    <div id="topnav" :class="{hidden: hidden}">
+    <div id="topnav" v-if="isVissible">
         <section class="title-bar">
             <div class="logo">
                 <router-link to="/"><img id="logo" src="../../assets/img/logo.png" alt="" /></router-link>
@@ -147,14 +147,14 @@ export default{
     data(){
     return{
         search: '',
-        hidden: false
+        isVissible: true,
+
     }
     },
     created(){
-        bus.$on('hide_top_nav', (bool)=>{
-            if(bool){
-                this.hidden = bool
-            }else this.hidden = false
+       bus.$on('hide_navs', (e)=>{
+            if(e) this.isVissible = false
+            else this.isVissible = true
         })
     }
 }

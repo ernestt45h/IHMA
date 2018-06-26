@@ -4,7 +4,7 @@ const User = require('../database/User')
 
 
 route.post('/:id', (req, res)=>{
-    switch(req.params.id){
+    switch(req.params.type){
         case 'username': User.findOne({username: req.body.username},(err, doc)=>{
             if(doc) res.json({isUser: true})
             else res.json({isUser: false})

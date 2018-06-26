@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var hasher = require('password-hash')
 var secret = require('../config/secrets')
-var mailer =  require('../models/mail')
+var mailer =  require('../routes/mail')
 var jwt = require('jsonwebtoken')
 
 

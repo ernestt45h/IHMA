@@ -8,7 +8,7 @@
                 </div>
                 <div v-if="!isLoading" class="text col-sm-9 col-md-9">
                     <choices :question="question" v-if="question" @go="parseAndGo"></choices>
-                    <div v-else>
+                    <div class="parser" v-else>
                         <h3 class="question">Hi I'm Aihma, How may I help</h3>
                         <input @keypress.enter="Diagnose" v-model="parser" placeholder="eg. I feel dizzy" class="answer" type="search" autofocus>
                         <button @click="Diagnose" class="btn btn-info btn-raised">go</button>
@@ -44,6 +44,7 @@
                 </vs-card>
             </div>
         </div>
+        {{evidences}}
         <choice-popup :active="popup.default" @genderAgeSetted="setStatus" @canceled="popup.default = false"></choice-popup>
     </div>
 </template>
@@ -135,9 +136,16 @@ export default {
                     if(!doc.data.error){
                         doc = doc.data
                         console.log("result", doc)
-                        if(doc){
+                        if(doc.question){
                             this.conditions = doc.conditions
                             this.question = doc.question
+                        }else{
+                            this.reset()
+                            this.question = 'Can\'t seem to find what\'s wrong with you at the moment? please try again'
+                            this.$vs.notify({
+                                text: 'Can\'t seem to find what\'s wrong with you at the moment',
+                                color: 'warning',
+                            })
                         }
                     }else this.$vs.notify({
                         text: doc.data.error,
@@ -233,4 +241,5 @@ export default {
     #gender-select{
         margin-top: 3px;
     }
+
 </style>

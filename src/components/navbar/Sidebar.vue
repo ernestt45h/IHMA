@@ -1,5 +1,5 @@
 <template>
-<div id="sidebar">
+<div v-if="isVissible" id="sidebar">
     <nav class="user-menu">
         <div class="pull-right">
             <a v-on:click="show()" v-bind:class="{active: isShowMenu}" class="main-menu-access btn">
@@ -71,6 +71,8 @@
 </template>
 <script>
 
+    import {bus} from '../../main'
+
     export default{
         name: 'main-menu',
         props:[ 'urls' ],
@@ -78,7 +80,8 @@
             return{
                 showMenu: false,
                 isShowMenu: false,
-                navs: ''
+                navs: '',
+                isVissible: true
             }
         },
         methods:{
@@ -91,6 +94,10 @@
             }
         },
         created(){
+            bus.$on('hide_navs', (e)=>{
+                if(e) this.isVissible = false
+                else this.isVissible = true
+            })
             this.navs = this.$store.getters.permissions
         }
       

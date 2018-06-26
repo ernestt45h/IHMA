@@ -19,6 +19,27 @@ route.get('/', (req, res)=>{
     })
 })
 
+route.get('/geo',(req, res)=>{ 
+    if(req.query.lng && req.query.lat){
+        let point = {
+            type: 'point', 
+            coordinates: [parseFloat(req.query.lng) ,parseFloat(req.query.lat)]
+        }
+        Hospital.aggregate([{
+            '$geoNear' : {
+                'near': point,
+                'spherical': true,
+                'distanceField': 'dist',
+                'maxDistance': 3000
+            }
+        }]).then((doc)=>{
+            res.send(doc)
+        })
+    }
+})
+
+
+
 route.get('/:name', (req, res)=>{
     let name = new RegExp(req.params.name, 'i'); 
     Hospital.find({name:  name }).then(doc=>{
@@ -41,6 +62,7 @@ route.put('/:id',(req, res)=>{
         }
     })
 })
+
 
 
 route.get('*',(req,res)=>{

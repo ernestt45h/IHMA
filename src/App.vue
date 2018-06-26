@@ -72,8 +72,9 @@ export default {
     if(this.$store.getters.isUser){
       this.getUser()
     }
-    
-    },
+
+    console.log(this.$router)
+  },
 }
 </script>
 <style>

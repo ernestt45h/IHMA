@@ -8,6 +8,9 @@
 import {bus} from '../../main'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
+import axios from 'axios'
+import host from '../../../config/host'
+
 delete L.Icon.Default.prototype._getIconUrl
 
 L.Icon.Default.mergeOptions({
@@ -23,7 +26,8 @@ export default {
             map: '',
             self: [ 5.5426563, -0.2057772 ],
             marker: '',
-            circle: ''
+            circle: '',
+            hospitals: ''
         }
     },
     watch:{
@@ -34,7 +38,16 @@ export default {
             }
         }
     },
+    computed:{
+        hospitalsList(){
+            
+        }
+    },
     methods:{
+        addHospital(coords){
+            L.marker(coords).addTo(this.map);
+        },
+
         //updates users location
         updateLocation(val){
             console.log(val)
@@ -50,11 +63,19 @@ export default {
             console.log('location', e)
             let coords = e.latlng
             let newloc = new L.LatLng(coords.lat, coords.lng)
+            let url = host.ihma +`/hospital/geo?lng=${coords.lat}&lat=${coords.lng}`
+            axios.get(url).then(doc=>{
+                this.hospitals = doc.data
+                for(let hospital of this.hospitals){
+                    console.log(hospital.geolocation.coordinates)
+                    this.addHospital(hospital.geolocation.coordinates)
+                }
+            })
             var circle = L.circle(newloc, {
                 color: '#5bc',
                 fillColor: '#5bc',
                 fillOpacity: 0.3,
-                radius: radius
+                radius: 3000
             }).addTo(this.map);
             this.map.removeLayer(this.marker)
             this.marker.setLatLng(newloc).addTo(this.map)

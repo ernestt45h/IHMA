@@ -1,6 +1,17 @@
 const mongoose = require('mongoose')
 
-const Hospital = mongoose.Schema({
+const GeoLoc = new mongoose.Schema({
+    type: {
+        type: String,
+        default: "Point"
+    },
+    coordinates:{
+        type: [Number],
+        index: "2dsphere"
+    }
+})
+
+const Hospital = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -15,7 +26,7 @@ const Hospital = mongoose.Schema({
     zip: String,
     state: String,
     country: String,
-    geolocation: [],
+    geolocation: GeoLoc,
 
 })
 

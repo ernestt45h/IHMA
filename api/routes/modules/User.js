@@ -3,7 +3,8 @@ const User = require('../../database/User')
 const auth = require('../JwtAuth')
 const userDetails = require('../../config/db').user_info
 
- 
+
+
 route.get('/',auth,(req,res)=>{
     User.findById(req.user._id, userDetails).then(doc=>{
         if(doc){
@@ -23,7 +24,7 @@ route.get('/',auth,(req,res)=>{
                     permissions: doc.permissions
                 },secret.jwt)
             })
-        }
+        }else res.json({error: 'invalid token recived'})
     })
     //TODO decypher token, find user and cypher new token
 })
@@ -58,5 +59,17 @@ route.get('/:type/:value',(req,res)=>{
     
 })
 
+
+route.get('/info',auth,(req,res)=>{
+    const U = require('../../models/User.model')
+    const u = new U()
+    var result = u.get_by_id(req.user._id)
+    result.then(doc=>{
+        console.log(doc, req.user._id)
+        res.json(doc)
+    }).catch(err=>{
+        res.json(err)
+    })
+})
 
 module.exports = route

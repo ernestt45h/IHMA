@@ -30,7 +30,7 @@ route.get('/geo',(req, res)=>{
                 'near': point,
                 'spherical': true,
                 'distanceField': 'dist',
-                'maxDistance': 3000
+                'maxDistance': req.query.raduis || 5000
             }
         }]).then((doc)=>{
             res.send(doc)

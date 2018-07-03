@@ -5,9 +5,11 @@ const mongoose = require('mongoose')
 const db = require('./config/db')
 const cors = require('cors')
 const bodyParser = require('body-parser')
+const morgan = require('morgan')
 
 app.use(bodyParser.json())
 app.use(cors())
+app.use(morgan("short"))
 
 app.use(express.static(__dirname + '/public'));
 
@@ -42,6 +44,21 @@ mongoose.connect(db.name,(err)=>{
     app.use('/hospital', Hospital)
     app.use('/user', User)
       
-    app.listen(80);
+    var server = app.listen(80);
+    var socket = require('socket.io')
+
+    var io = socket(server)
+
+    io.on('connection',(socket)=>{
+        console.log('socket connection', socket.id)
+
+
+        
+        // let note = 0;
+        // setInterval(()=>{
+        //     socket.emit('notification', note += 1)
+        // },5000)
+
+    })
 });
 

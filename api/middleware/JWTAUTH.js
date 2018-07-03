@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const secret = require('../config/secrets');
 
-module.exports = function(req, res, next){
+const Auth = function(req, res, next){
     const bearerHeader = req.header("authorization");
     //Check if there is token
     if (typeof bearerHeader !== 'undefined'){
@@ -17,7 +17,19 @@ module.exports = function(req, res, next){
             res.status(401).send("Unacceptable token")
         }
         }
+        /*jwt.verify(req.token, secret.jwt, (err, doc)=>{
+            if (err) res.send({message: err.message});
+            else{
+                req.user = doc.user;
+                console.log(req.token);
+                //next()
+            }
+        })*/
     else {
         res.status(401).send("user is unauthorized")
     }
 };
+
+
+
+module.exports =  Auth

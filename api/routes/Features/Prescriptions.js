@@ -6,7 +6,6 @@ const pres = require('../../public/test/morning.json')
 
 route.get('/', (req, res)=>{
     res.json(pres)
-    console.log(pres)
 })
 
 module.exports = route

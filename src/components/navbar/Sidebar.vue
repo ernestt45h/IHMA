@@ -21,7 +21,7 @@
                 <router-link :to="'/'+link.sub_name">
                     <i :class="link.fa_icon" class="nav_icon"></i>
                     <span class="nav-text text-capitalize">
-					{{ link.name }}
+					{{ link.sub_name || capitalize }}
 					</span>
                 </router-link>
             </li>

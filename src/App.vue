@@ -19,6 +19,7 @@ const TopNav = ()=>import('./components/navbar/top')
 const SideNav = ()=>import('./components/navbar/Sidebar')
 import axios from 'axios'
 import host from '../config/host'
+import Socket from 'socket.io-client'
 
 export default {
   name: 'App',
@@ -37,43 +38,24 @@ export default {
     }
   },
   methods:{
-    getUser(){
-      axios.get(host.ihma+'/user', {headers: {
-        Authorization: 'bearer '+ this.$store.getters.token
-      }})
-      .then(doc=>{
-          if(doc.status !== 200){
-             this.$vs.alert({
-              title: 'Account error',
-              text: `<h3 class="text-danger text-capitalize">
-                there seems to be an account error, please try logging out and back in
-                </h3>`,
-              color: 'danger',
-              confirm:()=>{
-                this.$store.dispatch('logout')
-              },
-              //TODO click to logout user when x button is clicked
-              cancel:()=>{
-                this.$store.dispatch('logout')
-              }
-            })
-          }
-          else
-            this.$store.commit('user', doc.data)
-      }).catch(err=>{
-        this.$vs.notify({
-          text: '<h4 class="text-capitalize">Connection problem</h4>',
-          color: 'danger'
-        })
-      })
-    }
+    
   },
-  created() {
-    if(this.$store.getters.isUser){
-      this.getUser()
-    }
+  mounted() {
+    //Socket io connection using ID
+    // var io = Socket.connect(host.ihma)
 
-    console.log(this.$router)
+    // io.on('who', data=>{
+    //   console.log(this.$store.getters.user.username)
+    //   io.emit('user', this.$store.getters.user.username)
+    // })
+
+    // io.on('message', data=>{
+    //   console.log(data)
+    //   this.$vs.notify({
+    //     text: data,
+    //     color: 'warning'
+    //   })
+    // })
   },
 }
 </script>

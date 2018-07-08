@@ -25,12 +25,14 @@ route.get('/geo',(req, res)=>{
             type: 'point', 
             coordinates: [parseFloat(req.query.lng) ,parseFloat(req.query.lat)]
         }
+
+        console.log(req.query)
         Hospital.aggregate([{
             '$geoNear' : {
                 'near': point,
                 'spherical': true,
                 'distanceField': 'dist',
-                'maxDistance': req.query.raduis || 5000
+                'maxDistance': req.query.radius || 5000
             }
         }]).then((doc)=>{
             res.send(doc)

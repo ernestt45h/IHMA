@@ -129,6 +129,12 @@ class User {
             .catch(err=>console.log(err))
     }
 
+    async update_user(id, body){
+        return user.updateOne(body).then(doc=>{
+            return {message: 'User successfully updated'}
+        })
+    }
+
     async generate_token(user_info, user_ip){
         const jwt = require('jsonwebtoken')
         const secret = require('../config/secrets')

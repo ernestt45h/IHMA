@@ -45,20 +45,26 @@ mongoose.connect(db.name,(err)=>{
     app.use('/user', User)
       
     var server = app.listen(80);
-    var socket = require('socket.io')
+    //var socket = require('socket.io')
 
-    var io = socket(server)
+    // var io = socket(server)
+    // let user = {}
 
-    io.on('connection',(socket)=>{
-        console.log('socket connection', socket.id)
-
+    // io.on('connection',(socket)=>{
 
         
-        // let note = 0;
-        // setInterval(()=>{
-        //     socket.emit('notification', note += 1)
-        // },5000)
+        
+    //     socket.emit('who')
 
-    })
+        
+
+    //     socket.on('user', data=>{
+    //         user[data] = socket.id
+    //         console.log('user ' + data + ' connected with ' + user[data]);
+    //         io.to(user['ernestt45hd']).emit('message', 'hello ernest')
+    //     })
+
+    // })
+        
 });
 

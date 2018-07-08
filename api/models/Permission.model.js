@@ -51,6 +51,12 @@ class Permission{
         }
     }
 
+    /**
+     * used to combine two permission arrays together
+     * 
+     * @param {[Permission]} user_perms 
+     * @param {[Permission]} perms 
+     */
     concat_perms(user_perms, perms){
         if(!user_perms) user_perms = []
         if(perms){

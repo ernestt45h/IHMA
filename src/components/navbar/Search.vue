@@ -26,8 +26,8 @@ export default {
 }
 </script>
 <style scoped>
- .btn{
-     margin-top: 0px
- }
+    .btn{
+        margin-top: 0px;
+    }
 </style>
 

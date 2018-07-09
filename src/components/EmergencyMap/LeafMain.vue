@@ -30,6 +30,16 @@ export default {
         return{
             map: '',
             user_coords: [ 5.6037168, -0.1869644 ],
+            user_icon: L.icon({
+                iconUrl: require('../../assets/1x/user_marker.png'),
+                iconRetinaUrl: require('../../assets/2x/user_marker@2x.png'),
+                iconSize: [40,60],
+                popupAnchor: [-3,-70],
+                iconAnchor: [0,60],
+                shadowUrl: require('../../assets/1x/shadow_marker.png'),
+                shadowSize: [20,10],
+                shadowAnchor: [-10,0]
+            }),
             hospital_icon: L.icon({
                     iconUrl: require('../../assets/1x/hospital_marker.png'),
                     iconRetinaUrl: require('../../assets/2x/hospital_marker@2x.png'),
@@ -129,16 +139,17 @@ export default {
         }).addTo(this.map);
 
         
-        this.marker = L.marker(this.user_coords, {draggable: true, title: "your location"}).addTo(this.map);
-        this.getHospitals(new L.LatLng(this.user_coords[0],this.user_coords[1]))
+        this.marker = L.marker(this.user_coords, {draggable: true, title: "your location", icon: this.user_icon}).addTo(this.map);
 
-        // this.map.on('locationfound', this.onLocationFound);
-        // this.map.on('locationerror', (e)=>{
-        //     this.map.locate({setView: true, maxZoom: 12});
-        // });
+        this.map.on('locationfound', this.onLocationFound);
+        this.map.on('locationerror', (e)=>{
+            this.map.locate({setView: true, maxZoom: 12});
+        });
 
-        // //this.map.on('click', e=>console.log(e))
-        // this.map.locate({setView: true, maxZoom: 12});
+        //this.map.on('click', e=>console.log(e))
+        this.map.locate({setView: true, maxZoom: 12})
+
+        console.log('app name', navigator.platform)
     }
 }
 </script>

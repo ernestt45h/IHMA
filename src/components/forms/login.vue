@@ -59,8 +59,8 @@ export default {
                         if(data.error) this.error = data.error
                         else{
                             data.permissions.sort(function(a, b) {
-                            var nameA = a.name.toUpperCase(); // ignore upper and lowercase
-                            var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+                            var nameA = a.sub_name.toUpperCase(); // ignore upper and lowercase
+                            var nameB = b.sub_name.toUpperCase(); // ignore upper and lowercase
                             if (nameA < nameB) {
                                 return -1;
                             }

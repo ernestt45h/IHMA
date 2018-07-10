@@ -132,6 +132,8 @@ class User {
     async update_user(id, body){
         return user.updateOne(body).then(doc=>{
             return {message: 'User successfully updated'}
+        }).catch(err=>{
+            return {error: 'Error updating user'}
         })
     }
 

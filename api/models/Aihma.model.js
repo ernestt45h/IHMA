@@ -8,7 +8,7 @@ const axios = require('axios')
 class Aihma{
 
     /**
-     * Accepts the language used for aihma
+     * Accepted language used by aihma
      * en – English model, used automatically by default
      * fr – French model
      * de – German model
@@ -19,13 +19,14 @@ class Aihma{
      * ru – Russian model
      * zh – Chinese (Simplified) model
      * 
-     * @param {String} model 
+     * @param {String} lang
+     * @param {Boolean} is_dev
      */
-    constructor(model='en', is_dev=false){
+    constructor(language='en', is_dev=false){
         this.api = host
         this.api_id = api_id
         this.api_key = api_key
-        this.lang = host_name+'-'+ model
+        this.lang = host_name+'-'+ language
         this.headers = {    
             App_id: api_id,
             App_key: api_key,
@@ -33,6 +34,10 @@ class Aihma{
             Model: this.lang
 
         }
+    }
+
+    test(){
+        console.log('works')
     }
 
     /**
@@ -72,11 +77,11 @@ class Aihma{
      */
     parser(message){
         if(this.is_empty(message)) return {error: 'message field required'}
-        return axios.post(this.api+'/parse',{headers: this.headers}).then(doc=>{
+        return axios.post(this.api+'/parse',{text: message},{headers: this.headers}).then(doc=>{
             if(doc.data) return doc.data
-            else return {error: 'can\'t seem to understand your symptom'}
+            else throw {error: 'can\'t seem to understand your symptom'}
         }).catch(err=>{
-            return {error: err}
+            throw {error: err}
         })
     }
 
@@ -89,12 +94,17 @@ class Aihma{
      * @param {number} age 
      * @param {[string]} selected 
      */
-    suggest(sex, age, selected){
-        if (this.is_empty(sex, age, selected)) return {error: 'sex, age and selected suggessios required'}
-        return axios.post(this.api+'/suggest/').then(doc=>{
+    async suggest(sex, age, selected){
+        if (this.is_empty(sex, age))
+             throw {error: 'sex and age required'}
+        let request = {sex, age, selected}
+        return axios.post(this.api+'/suggest/',request,{
+            headers: this.headers
+        }).then(doc=>{
             return doc.data
         }).catch(err=>{
-            return {error: err}
+            console.log(err)
+            throw {error: 'Suggestion connection error'}
         })
     }
 
@@ -116,18 +126,22 @@ class Aihma{
      * @param {[{id:String, choice:String}]} evidence [{"id": "s_47", "choice_id": "present", "initial": true}]
      */
     async diagnosis(sex, age, evidence){
-        if(this.is_empty(sex,age)) return {error: 'sex and age required'}
+        if(false) {
+            console.log('hello')
+            return {error: 'sex and age required'}
+        }
+        
         let request = {sex, age, evidence}
         //makes the request to the api server
-        return axios.post(host+'/diagnosis', request, {
-            headers: this.headers
-        }).then((res) => {
-            let doc = res.data
-            if(doc)return doc
-            else return {error: "can't seem to diagnose your symptom at the moment"}
-        }).catch((err) => {
-            return {error: err}
-        });
+        return  axios.post(host+'/diagnosis', request, {
+                    headers: this.headers
+                }).then((res) => {
+                    let doc = res.data
+                    if(doc) return doc
+                    else throw {error: "can't seem to diagnose your symptom at the moment"}
+                }).catch((err) => {
+                    throw {error: 'Diagnostics connection error'}
+                })
     }
 
     /**
@@ -158,9 +172,9 @@ class Aihma{
      */
     is_empty(...list){
         if(list)
-        for(item of list){
-            if(item) return true
-            else return false
+        for(let item of list){
+            console.log(item)
+            if(!item) return true
         }else return true
     }
 
@@ -179,3 +193,5 @@ class Aihma{
         }else return
     }
 }
+
+module.exports = Aihma

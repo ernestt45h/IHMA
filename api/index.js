@@ -25,7 +25,7 @@ mongoose.connect(db.name,(err)=>{
     const Signup = require('./routes/Signup')
     const Activate = require('./routes/activate')
     const PermissionAdder = require('./routes/Features/PermissionAdder')
-    const Diagnosis = require('./routes/Features/Diagnosis')
+    const Aihma = require('./routes/Features/Aihma')
     const Prescription = require('./routes/Features/Prescriptions')
     const Hospital = require('./routes/modules/Hospital')
     const User = require('./routes/modules/User')
@@ -35,11 +35,12 @@ mongoose.connect(db.name,(err)=>{
     app.use('/feature', FeatureController)
     
     
+    app.use('/aihma', Aihma)
     app.use('/login', Login)
     app.use('/signup', Signup)
     app.use('/activate', Activate)
     app.use('/permission-adder', PermissionAdder)
-    app.use('/diagnosis', Diagnosis)
+
     app.use('/prescription', Prescription)
     app.use('/hospital', Hospital)
     app.use('/user', User)

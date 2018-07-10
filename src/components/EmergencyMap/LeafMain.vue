@@ -35,20 +35,20 @@ export default {
                 iconRetinaUrl: require('../../assets/2x/user_marker@2x.png'),
                 iconSize: [40,60],
                 popupAnchor: [-3,-70],
-                iconAnchor: [0,60],
+                iconAnchor: [20,60],
                 shadowUrl: require('../../assets/1x/shadow_marker.png'),
                 shadowSize: [20,10],
-                shadowAnchor: [-10,0]
+                shadowAnchor: [10,0]
             }),
             hospital_icon: L.icon({
                     iconUrl: require('../../assets/1x/hospital_marker.png'),
                     iconRetinaUrl: require('../../assets/2x/hospital_marker@2x.png'),
                     iconSize: [40,60],
                     popupAnchor: [21,-70],
-                    iconAnchor: [0,70],
+                    iconAnchor: [20,70],
                     shadowUrl: require('../../assets/1x/shadow_marker.png'),
                     shadowSize: [20,10],
-                    shadowAnchor: [-10,0]
+                    shadowAnchor: [10,0]
             }),
             marker: '',
             circle: '',
@@ -79,7 +79,7 @@ export default {
             
         },
 
-        getHospitals(coords,radius = 15000){
+        getHospitals(coords, radius = 5000){
             console.log('getting hospitals')            
              let url = host.ihma +`/hospital/geo?lng=${coords.lat}&lat=${coords.lng}&radius=${radius}`
              axios.get(url).then(doc=>{
@@ -113,7 +113,7 @@ export default {
                 color: '#5bc',
                 fillColor: '#5bc',
                 fillOpacity: 0.3,
-                radius: 10000
+                radius: 5000
             }).addTo(this.map);
             this.map.removeLayer(this.marker)
             this.marker.setLatLng(newloc).addTo(this.map)

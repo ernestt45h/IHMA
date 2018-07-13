@@ -10,7 +10,7 @@
                             </div>
                             <div class="comments-info sub-info">
                                 <h3><i :class="tab.fa_icon"></i></h3>
-                                <a href="#" class="text-capitalize">{{ tab.name }}</a>
+                                <a href="#" class="text-capitalize">{{ tab.sub_name || capitalize }}</a>
                             </div>
                             <div class="clearfix"> </div>
                         </div>

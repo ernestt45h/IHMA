@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var hasher = require('password-hash')
 var secret = require('../config/secrets')
-var mailer =  require('../models/mail')
+var mailer =  require('../routes/mail')
 var jwt = require('jsonwebtoken')
 
 
@@ -33,12 +33,7 @@ User.pre('save', function(next){
     const prePermissions  = require('./Permission')
     //Remember to change this in producion mode
     if(!this.role) this.role = "developer"
-    prePermissions.findOne({is_default: true, role: this.role}).then(doc=>{
-        this.permissions = doc
-        //var activation_string = jwt.sign({ activation: this._id }, secret.key)
-        //mailer.sendActivation(activation_string, this.email, next)
-        next()
-    }).catch(err=>next(err))
+    next()
 })
 
 module.exports = mongoose.model('user', User)

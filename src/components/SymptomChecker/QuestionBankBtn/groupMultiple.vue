@@ -37,6 +37,11 @@ export default {
         },
         next(){
             this.$emit('clicked', this.evidences)
+            console.log({
+                type: 'm-single',
+                options: this.item,
+                choise: payload
+            })
         }
     },
     created(){

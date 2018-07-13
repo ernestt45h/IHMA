@@ -7,7 +7,7 @@
                 <single :item="question.items[0].choices" @clicked="pushSingle"></single>
             </div>
             <div v-else-if="question.type == 'group_single'">
-                <group-single :item="question.items" @clicked="addEvidence"></group-single>  
+                <group-single :item="question.items" @clicked="pushSingleGroup"></group-single>  
             </div>
             <!--Will fix you later-->
             <div v-else-if="question.type == 'group_multiple'">
@@ -65,6 +65,11 @@ export default {
             })
             this.go()
         },
+
+        pushSingleGroup(payload){
+            this.addEvidence(payload)
+            this.go()
+        }
     }
 }
 </script>

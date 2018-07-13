@@ -198,8 +198,8 @@ export default {
     }
 
     .cal-header{
-        margin: -10px;
-        min-height: 50px;
+        margin: -20px;
+        min-height: 60px;
         box-shadow: 0px 2px 4px 0px #ddd;
     }
 

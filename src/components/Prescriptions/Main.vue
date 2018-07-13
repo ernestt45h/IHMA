@@ -20,10 +20,10 @@
                 <a :href="'#'+index" :id="index" class="list-group-item list-group-item-action flex-column align-items-start" 
                     :class="{'active' : activepill == index}" @click="activepill = index">
                     <div class="d-flex w-100 justify-content-between">
-                    <h3 class="mb-1">{{item.name | captilize}}</h3>
-                    <small>Take {{item.intake}} tablets</small>
+                        <h3 class="mb-1">{{item.name | captilize}}</h3>
+                        <small>Take {{item.intake}} tablets</small>
                     </div>
-                    <p class="mb-1 text-warning text-capitalize">{{item.description}}
+                    <p class="mb-4 text-warning text-capitalize">{{item.description}}
                     </p>
                     <div class="mb-1 text-warning text-capitalize" v-if="item['interval-description']">{{item['interval-description']}}</div>
                     <small>Keep Taking Till: <i class="fa fa-clock-o"></i> {{item.duration | simpleDate}} 

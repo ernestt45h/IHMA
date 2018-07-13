@@ -17,14 +17,6 @@ module.exports = function(req, res, next){
             res.status(401).send("Unacceptable token")
         }
         }
-        /*jwt.verify(req.token, secret.jwt, (err, doc)=>{
-            if (err) res.send({message: err.message});
-            else{
-                req.user = doc.user;
-                console.log(req.token);
-                //next()
-            }
-        })*/
     else {
         res.status(401).send("user is unauthorized")
     }

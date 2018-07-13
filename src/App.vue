@@ -19,6 +19,7 @@ const TopNav = ()=>import('./components/navbar/top')
 const SideNav = ()=>import('./components/navbar/Sidebar')
 import axios from 'axios'
 import host from '../config/host'
+import Socket from 'socket.io-client'
 
 export default {
   name: 'App',
@@ -28,9 +29,34 @@ export default {
         console.log('Logging out now')
         this.$router.push('login')
         }
-    }
+    },
   },
   components:{TopNav,SideNav},
+  data(){
+    return{
+      username: ''
+    }
+  },
+  methods:{
+    
+  },
+  mounted() {
+    //Socket io connection using ID
+    // var io = Socket.connect(host.ihma)
+
+    // io.on('who', data=>{
+    //   console.log(this.$store.getters.user.username)
+    //   io.emit('user', this.$store.getters.user.username)
+    // })
+
+    // io.on('message', data=>{
+    //   console.log(data)
+    //   this.$vs.notify({
+    //     text: data,
+    //     color: 'warning'
+    //   })
+    // })
+  },
 }
 </script>
 <style>

@@ -16,6 +16,7 @@
     "jsonwebtoken": "^8.2.1",
     "mongoose": "^5.1.2",
     "nodemailer": "^4.6.5",
+    "nodemon": "^1.18.2",
     "password-hash": "^1.2.2",
     "socket.io": "^2.1.0"
   }

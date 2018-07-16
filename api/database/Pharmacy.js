@@ -27,7 +27,7 @@ const Pharmacy = new mongoose.Schema({
         default:Date.now
     },
     stock:[{
-        drug_id:{type: Schema.ObjectId, ref: 'drug'},
+        drug_id:{type:mongoose.Schema.ObjectId, ref: 'drug'},
         quantity:{
             type:Number,
             default:0

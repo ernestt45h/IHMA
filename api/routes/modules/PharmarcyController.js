@@ -35,7 +35,6 @@ route.put('/:id', (req, res) => {
 })
 
 //fetching all pharmacy endpoint
-
 route.get('/', (req, res) => {
   Pharmacy.find({}, function (error, doc) {
     if (error) { console.error(error); }
@@ -60,6 +59,7 @@ route.delete('/:id', (req, res) => {
   })
 })
 
+
 //getting the geolocation of the pharmacy
 route.get('/geo', (req, res) => {
   if (req.query.lng && req.query.lat) {
@@ -82,6 +82,7 @@ route.get('/geo', (req, res) => {
   }
 })
 
+
 //getting a single pharmacy
 route.get('/:name', (req, res) => {
   let name = new RegExp(req.params.name, 'i');
@@ -91,6 +92,28 @@ route.get('/:name', (req, res) => {
     console.log('error')
   })
 })
+
+
+
+
+//fetching all drugs from pharmacy
+
+route.get('/:id/drugs', (req, res) => {
+  Pharmacy.findById(req.params.id).populate('stock.drug_id').exec(function (err, doc) {
+    if (err) {
+      console.log(err)
+    } else {
+
+      res.json({
+        pharmacyDrugs: doc
+
+      })
+    }
+
+  });
+})
+
+
 
 
 
@@ -109,7 +132,7 @@ route.all('/:id/addDrug', (req, res) => {
             error: 'Drug already exists in stock'
           })
         } else {
-          Pharmacy.findOneAndUpdate({ _id: PharmacyId }, { $push: { stock: { drug_id: doc._id, quantity: DrugQuantity } } }, function (err, success) {
+          Pharmacy.findOneAndUpdate({ _id: PharmacyId }, { $push: { stock: {_id:doc._id, drug_id: doc._id, quantity: DrugQuantity } } }, function (err, success) {
             if (err) {
               console.log(err)
             }
@@ -138,7 +161,7 @@ route.all('/:id/addDrug', (req, res) => {
                 error: 'Drug already exists in stock'
               })
             } else {
-              Pharmacy.findOneAndUpdate({ _id: PharmacyId }, { $push: { stock: { drug_id: new_drug._id, quantity: DrugQuantity } } }, function (err, success) {
+              Pharmacy.findOneAndUpdate({ _id: PharmacyId }, { $push: { stock: {_id:new_drug._id, drug_id: new_drug._id, quantity: DrugQuantity } } }, function (err, success) {
                 if (err) {
                   console.log(err)
                 }
@@ -159,53 +182,36 @@ route.all('/:id/addDrug', (req, res) => {
 
 
 
-//fetching all drugs from pharmacy
-
-route.get('/:id/drugs', (req, res) => {
-  Pharmacy.findById(req.params.id).populate('stock.drug_id').exec(function (err, doc) {
-    if (err) {
-      console.log(err)
-    } else {
-
-      res.json({
-        pharmacyDrugs: doc
-
-      })
-    }
-
-  });
-})
-
-
-
-
-
 
 
 //updating a drug in pharmacy
-/*route.all('/:id/editDrug/:name', (req, res) => {
-console.log(req.params.name)
-  drug.findOneAndUpdate({name:req.params.name},'name quantity', function (err, doc) {
-    if (err) {
-      console.log(err)
-    } else {
-      doc.name = req.body.name
-      doc.quantity = req.body.quantity
+route.put('/:id/drugs/:drugId',(req,res)=>{
+  Pharmacy.update({_id: req.params.id, 'stock.drug_id': req.params.drugId}, {'stock.$.quantity': req.body.quantity},(err,doc)=>{
+    if(err) {console.log(err)}
+    else{
+      res.send({msg:'Drug updated successfully'})
     }
-    doc.save(function (error) {
-      if (error) {
-        console.error(error)
-        res.send({
-          error: "Failed to update drug"
-        })
-      }
-      res.send({
-        success: "Drug was updated successfully"
-      })
-    })
-
   })
+  
 })
+
+
+
+
+
+//deleting a drug from the pharmacy
+route.delete('/:id/drugs/:drugId',(req,res)=>{
+  Pharmacy.update({_id: req.params.id}, {$pull: {stock: {_id: req.params.drugId}}},(err, num)=> {
+    if(err) {console.log(err); }
+    else{
+      res.send({msg:'Drug deleted successfuly'})
+    }  
+})
+
+})
+
+
+
 
 
 
@@ -226,7 +232,7 @@ route.delete('/pharmacy/:id/deleteDrug/:DrugId', (req, res) => {
 
 
 
-*/
+
 
 
 

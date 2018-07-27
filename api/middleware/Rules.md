@@ -1,4 +1,4 @@
 Any sugestions can be added here :)
 .....................................
 
-MiddleWares should be made syncronous
+MiddleWares should be made synchronous

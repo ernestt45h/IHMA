@@ -13,6 +13,7 @@ import 'vuesax/dist/vuesax.css'
 import './assets/css/style.css'
 import 'font-awesome/css/font-awesome.min.css'
 
+
 Vue.filter('simpleDate', (val)=>{
   if(val){
     var months = ["January", "Febuary", "March", "April", "May", "June", "July", "Augest", "September", "October", "November", "December"]

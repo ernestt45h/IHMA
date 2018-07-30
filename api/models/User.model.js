@@ -21,6 +21,27 @@ class User {
         })
     }
 
+    async get_all(){
+        return user.find({}).then(doc=>doc)
+    }
+
+    async get_users(type = 'username', value){
+        if(!value) throw {error: 'get_user value parameter can not be empty'}
+        switch(type){
+            case 'username': return user.find({username: {'$regex': value}}).then(doc=>doc)
+                break
+            case 'email': return user.find({email: {'$regex': value}}).then(doc=>doc)
+                break
+            case 'phone': return user.find({phone: {'$regex': value}}).then(doc=>doc)
+                break
+            default: throw {error: 'invalid get_users type parameter'}
+        }
+    }
+
+    async get_one_user(type, value){
+        return this.get_users(type, value).then(doc=>doc[0])
+    }
+    
     /**
      * Checks the validity of a user
      * @param  type {type: 'username' | 'email' }
@@ -100,7 +121,8 @@ class User {
                                     bio: doc.bio,
                                     image: doc.image,
                                     permissions: doc.permissions,
-                                    token: token
+                                    token: token,
+                                    role: doc.role
                                     }
                                 }).catch(err=>{
                                     return {
@@ -130,9 +152,10 @@ class User {
     }
 
     async update_user(id, body){
-        return user.updateOne(body).then(doc=>{
+        delete body._id
+        return user.updateOne({_id : id},body).then(doc=>{
             return {message: 'User successfully updated'}
-        })
+        }).catch(err=>console.log(err))
     }
 
     async generate_token(user_info, user_ip){

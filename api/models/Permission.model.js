@@ -1,6 +1,14 @@
 const perms = require('../database/Permission')
 
 class Permission{
+
+    async get_permissions(body){
+        return perms.find(body).then(doc=>doc).catch(err=>{
+            throw {error: 'could not get permmissions'}
+        })
+    }
+
+
     /**
      * Gets user permissions and default features
      * @param {string} role:

@@ -2,7 +2,7 @@
    <form-temp>
         <div id="login-btn">
             <router-link to="login">
-                <vs-button type="primary-raised" >Log In</vs-button>
+                <vs-button vs-type="primary-flat" >Log In</vs-button>
             </router-link>
         </div>
             <vs-card id="signup-card"  class="holamundo" >
@@ -17,13 +17,7 @@
                         <template lang="html">
                             <div class="">
                                 <vs-tabs>
-                                <vs-tab vs-label="Phone">
-                                    <div class="con-tab-ejemplo">
-
-                                    sign up service will be available soon
-                                    </div>
-                                </vs-tab>
-                                <vs-tab vs-label="Email">
+                                    <vs-tab vs-label="Email">
                                     <div class="con-tab-ejemplo">
                                         <vs-input 
                                             vs-icon="person" 
@@ -58,6 +52,13 @@
                                             vs-type="password" vs-label-placeholder="Password" v-model="repassword"/>
                                     </div>
                                 </vs-tab>
+                                <vs-tab vs-label="Phone">
+                                    <div class="con-tab-ejemplo">
+
+                                    sign up service will be available soon
+                                    </div>
+                                </vs-tab>
+                                
                                 </vs-tabs>
                             </div>
                             </template>

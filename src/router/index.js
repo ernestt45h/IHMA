@@ -17,6 +17,11 @@ const Appointments = ()=>import('../components/Appointments/Main')
 const SymptomChecker = ()=>import('../components/SymptomChecker/Main')
 const Prescriptions = ()=>import('../components/Prescriptions/Main')
 const EmergencyMap = ()=>import('../components/EmergencyMap/leafMain')
+//Permissions Home
+const Permissions = ()=>import('../components/Permissions/Main')
+const UserPermision = ()=>import('../components/Permissions/User')
+const HomePermisson = ()=>import('../components/Permissions/')
+const PermissionsMod = ()=>import('../components/Permissions/Permissions')
 
 Vue.use(Router)
 
@@ -66,6 +71,14 @@ export default new Router({
         {path: '/diagnosis', redirect: 'Diagnosis'},
         {name: 'Prescriptions', path: '/prescriptions', component: Prescriptions},
         {name: 'EmergencyMap', path: '/emergency', component: EmergencyMap},
+        {path: '/permission', component: Permissions,
+          children:[
+            {name:'HomePermission', path:'/', component: HomePermisson},
+            {name:'UserPermission', path:'user', component: UserPermision},
+            {name: 'PermissionsMod', path: 'permissions', component: PermissionsMod}
+          ]
+        },
+        
 
       ]
     }

@@ -18,6 +18,9 @@
                 </router-link>
                 <div class="clearfix"> </div>
             </div>
+            <div class="developer-tools">
+                <vs-button v-for="(btn, index) in tabs" :key="index" v-if="isDevelop(btn.actions)" style="border-radius: 50%" vs-color="warning" vs-type="flat" vs-icon="bug_report"></vs-button>
+            </div>
         </div>
     </keep-alive>
 </template>
@@ -39,7 +42,14 @@
                         return true
                     }
                 }
-            }
+            },
+            isDevelop:(perms)=>{
+                for (var i = 0; i < perms.length; i++){
+                    if (perms[i] === "develop"){
+                        return true
+                    }
+                }
+            },
         },
     }
 </script>
@@ -71,5 +81,11 @@
 
     .sub-info a{
         color: white !important;
+    }
+
+    .developer-tools{
+        position: absolute;
+        bottom: 0;
+        right: 0;
     }
 </style>

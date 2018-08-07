@@ -111,20 +111,22 @@ class User {
                             //Note: there will be a check on user's ip when making a request
                             let perm = new Permission()
                             return perm.get_default_perms(doc.role).then((perms)=>{
+                                doc.perms = perm.concat_perms(doc.permissions, perms)
+                                console.log(doc.perms)
                                 let jwt = this.generate_token(doc, ip)
                                 return jwt.then(token=>{
-                                    doc.permissions = perm.concat_perms(doc.permissions, perms)
                                     return {
                                     username: doc.username,
                                     email: doc.email,
                                     name: doc.name,
                                     bio: doc.bio,
                                     image: doc.image,
-                                    permissions: doc.permissions,
+                                    permissions: doc.perms,
                                     token: token,
                                     role: doc.role
                                     }
                                 }).catch(err=>{
+                                    console.log('error: ' + err)
                                     return {
                                         error: 'failed in generating token @ user.model:login()->generate_token',
                                         code: err
@@ -132,6 +134,7 @@ class User {
                                         console.log(err)
                                 })
                             }).catch((err)=>{
+                                console.log(err)
                                 return {
                                     error: 'failed in fetching permissions',
                                     code: err

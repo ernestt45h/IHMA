@@ -71,7 +71,7 @@ export default new Router({
         {path: '/diagnosis', redirect: 'Diagnosis'},
         {name: 'Prescriptions', path: '/prescriptions', component: Prescriptions},
         {name: 'EmergencyMap', path: '/emergency', component: EmergencyMap},
-        {path: '/permission', component: Permissions,
+        {path: '/developer', component: Permissions,
           children:[
             {name:'HomePermission', path:'/', component: HomePermisson},
             {name:'UserPermission', path:'user', component: UserPermision},

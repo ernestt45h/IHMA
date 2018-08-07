@@ -9,6 +9,31 @@ class Permission{
     }
 
 
+    async update(body, user_id){
+
+        if(user_id){
+            //Update User permission
+            const User = require('./User.model')
+            const user = new User()
+            user.update_user(user_id,{
+                permissions: []
+            })
+        }else{
+            //Update Permission
+        }
+
+        // let id
+        // if(user_id) id = user_id
+        // else if(body._id) id = body._id
+        // else throw {error: 'User Id required'}
+        //     return perms.updateOne({_id: id}, body).then(doc=>{
+        //         if(doc) return {message: 'user successfully updated'}
+        //         else throw {error: 'unknown updated user of id '+id}
+        //     }).catch(err=>{
+        //         throw {error: 'unable to update user'}
+        //     })
+    }
+
     /**
      * Gets user permissions and default features
      * @param {string} role:
@@ -66,13 +91,23 @@ class Permission{
      * @param {[Permission]} perms 
      */
     concat_perms(user_perms, perms){
-        if(!user_perms) user_perms = []
-        if(perms){
-            for(let perm of perms){
-                user_perms.push(perm)        
+
+        let result = new Array()
+        
+        if(user_perms){
+            for(let perm of user_perms){
+                result.push(perm)      
             }
         }
-        return user_perms
+
+        if(perms){
+            for(let perm of perms){
+                result.push(perm)     
+            }
+        }
+
+        console.log(result)
+        return result
     }
 }
 

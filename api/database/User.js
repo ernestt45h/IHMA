@@ -23,7 +23,9 @@ const User = mongoose.Schema({
     image: String,
     password: { type: String, required: [true, "can't be black"]},
     status: String,
-    permissions: [],
+    permissions: [
+        {type: mongoose.Schema.ObjectId, ref: 'permissions'}
+    ],
     },{
     timestamps: true
 });

@@ -16,7 +16,7 @@ const Permission = mongoose.Schema({
     role: String,
     actions: [{
         type: String,
-        enum: ['create', 'read', 'delete', 'update']
+        enum: ['create', 'read', 'delete', 'update', 'develop']
     }],
     target:String,
     is_default: {

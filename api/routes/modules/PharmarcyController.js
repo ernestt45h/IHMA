@@ -1,4 +1,5 @@
-const Pharmacy = require("../../database/Pharmacy");
+const Pharmacy = require("../../models/Pharmacy.model");
+const pharm = new Pharmacy
 const drug = require("../../database/Drug")
 const route = require('express').Router()
 
@@ -6,15 +7,13 @@ const route = require('express').Router()
 
 //creating a Pharmacy
 route.post('/', (req, res) => {
-  let body = req.body
-  if ("name" in body && "phone" in body) {
-    let pharmacy = Pharmacy(body)
-    pharmacy.save((err, doc) => {
-      if (err) res.status(500).send(err)
-      else res.send(doc)
-    })
-  }
-  else res.send("At least provide both name and phone number")
+  pharm.create_hospital(req.body)
+  .then(doc=>{
+    console.log('res', doc)
+    res.json(doc)
+  }).catch(err=>{
+    res.json(err)
+  })
 })
 
 

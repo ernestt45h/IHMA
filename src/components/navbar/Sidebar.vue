@@ -1,10 +1,14 @@
 <template>
 <div v-if="isVissible" id="sidebar">
     <nav class="user-menu">
+        <div class="pull-left">
+            <img src="../../assets/logo.png" height="50px"/>
+            <span class="title">OneCare Plus</span>
+        </div>
         <div class="pull-right">
             <a v-on:click="show()" v-bind:class="{active: isShowMenu}" class="main-menu-access btn">
-            <i class="fa fa-bars"></i>
-        </a>
+                <i class="fa fa-bars"></i>
+            </a>
         </div>
     </nav>
     <nav class="main-menu" v-bind:class="{expanded: showMenu}">
@@ -50,6 +54,14 @@
         <ul class="logout">
             <li>
             <li>
+                <a href="/profile">
+                    <i class="fa fa-user nav-icon"></i>
+                    <span class="nav-text">
+			Profile
+			</span>
+                </a>
+            </li>
+            <li>
                 <a href="/settings">
                     <i class="fa fa-cog nav-icon"></i>
                     <span class="nav-text">
@@ -71,7 +83,6 @@
 </template>
 <script>
 
-    import {bus} from '../../main'
 
     export default{
         name: 'main-menu',
@@ -90,20 +101,21 @@
                 this.showMenu = !this.showMenu                
             },
             logout(){
-                this.$store.dispatch('logout')
+                this.$store.dispatch('user/logout')
             }
         },
         created(){
-            bus.$on('hide_navs', (e)=>{
-                if(e) this.isVissible = false
-                else this.isVissible = true
-            })
             this.navs = this.$store.getters.permissions
         }
       
     }
 </script>
 <style scoped>
+
+    .user-menu{
+        box-shadow: 0 5px 25px rgba(0, 0, 0, .25);
+    }
+
     #logo{
         width: 100px;
         padding: 10px;
@@ -124,5 +136,16 @@
             font-size:18px;
             padding:.7em 0;
                 
+    }
+
+    .title{
+        font-size: 20px;
+        font-weight:bold;
+        margin-top: 20px;
+        color: #555;
+    }
+    
+    .pull-left{
+        margin-left: 10px;
     }
 </style>

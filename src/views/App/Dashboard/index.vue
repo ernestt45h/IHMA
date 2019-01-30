@@ -1,9 +1,10 @@
 <template>
     <keep-alive>
-        <div v-if="tabs">
+        <div>
             <div class="container">
                 <div class="grid-info row">
-                    <router-link v-for="tab of tabs" :key="tab.name"  :to="'/'+tab.sub_name" v-if="isView(tab.actions)" class="col-sm-6 col-md-4 col-lg-4">
+                    asdasdads
+                    <!-- <router-link v-for="tab of tabs" :key="tab.name"  :to="'/'+tab.sub_name" v-if="isView(tab.actions)" class="col-sm-6 col-md-4 col-lg-4">
                         <div class="top-comment-grid">
                             <div class="comments" :class="colorPallet[Math.floor(Math.random()*colorPallet.length)]">
                                 <div class="comments-icon">
@@ -17,10 +18,10 @@
                             </div>
                         </div>
                     </router-link>
-                    <div class="clearfix"> </div>
+                    <div class="clearfix"> </div> -->
                 </div>
                 <div class="developer-tools">
-                    <vs-button v-for="(btn, index) in tabs" :key="index" v-if="isDevelop(btn.actions)" style="border-radius: 50%" vs-color="warning" vs-type="flat" vs-icon="bug_report"></vs-button>
+                    <!-- <vs-button v-for="(btn, index) in tabs" :key="index" v-if="isDevelop(btn.actions)" style="border-radius: 50%" vs-color="warning" vs-type="flat" vs-icon="bug_report"></vs-button> -->
                 </div>
             </div>
         </div>
@@ -34,30 +35,17 @@
             return{
                 colorPallet:['aqua', 'blue', 'green', 'orange'],
                 ranNum: 10,
-                tabs: this.$store.getters.permissions
+                // tabs: this.$store.getters.permissions
             }        
         },
         methods: {
-            isView:(perms)=>{
-                for (var i = 0; i < perms.length; i++){
-                    if (perms[i] === "read"){
-                        return true
-                    }
-                }
-            },
-            isDevelop:(perms)=>{
-                for (var i = 0; i < perms.length; i++){
-                    if (perms[i] === "develop"){
-                        return true
-                    }
-                }
-            },
+            
         },
         created(){
-            console.log(this.tabs.length)
-            if(this.tabs.length == 1){
-                this.$router.push({name: 'Diagnosis'})
-            }
+            // console.log(this.tabs.length)
+            // if(this.tabs.length == 1){
+            //     this.$router.push({name: 'Diagnosis'})
+            // }
         }
     }
 </script>

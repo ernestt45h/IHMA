@@ -1,17 +1,18 @@
 <template>
     <div id="topnav" v-if="isVissible">
         <section class="title-bar">
-            <div class="logo">
-                <router-link to="/"><img id="logo" src="../../assets/img/logo.png" alt="" /></router-link>
+            <div class="logo" id="logo">
+                <router-link to="/"><img height="72px" src="../../assets/logo.png" alt="" /></router-link>
+                <span>OneCare Plus</span>
             </div>
             
-            <search-bar></search-bar>
-           
+            <!-- <search-bar></search-bar> -->
+
             <div class="header-right">
                 <div class="profile_details_left">
-                    <div class="header-right-left">
+                    <!-- <div class="header-right-left"> -->
                         <!--notifications of menu start -->
-                        <ul class="nofitications-dropdown">
+                        <!-- <ul class="nofitications-dropdown">
                             <li class="dropdown head-dpdn">
                                 <mails></mails>
                             </li>
@@ -107,24 +108,7 @@
                             </li>
                             <div class="clearfix"> </div>
                         </ul>
-                    </div>
-                    <div class="profile_details">
-                        <ul>
-                            <li class="dropdown profile_details_drop">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <div class="profile_img">
-                                        <span class="prfil-img"><i class="fa fa-user" aria-hidden="true"></i></span>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </a>
-                                <ul class="dropdown-menu text-center">
-                                    <li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>
-                                    <li> <a href="#"><i class="fa fa-user"></i> Profile</a> </li>
-                                    <li> <a href="#"><i class="fa fa-sign-out"></i> Logout</a> </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
+                    </div> -->
                     <div class="clearfix"> </div>
                 </div>
             </div>
@@ -137,7 +121,6 @@
     </div>
 </template>
 <script>
-import {bus} from '../../main'
 const SearchBar = ()=>import('./Search')
 const Mails = ()=>import('./notification/drawer')
 
@@ -152,18 +135,17 @@ export default{
     }
     },
     created(){
-       bus.$on('hide_navs', (e)=>{
-            if(e) this.isVissible = false
-            else this.isVissible = true
-        })
+       
     }
 }
 </script>
 <style scoped>
     #logo{
-        padding-top: 10px; 
-        width: 150px;
+        width: 300px;
+        margin: 10px 0 10px 20px; 
     }
+
+
      @media(max-width:480px){
         #logo{
             display: none
@@ -178,10 +160,15 @@ export default{
 
     #topnav{
         background: #fff;
-        padding-bottom: 10px; 
+        /* padding-bottom: 20px;  */
     }
 
     .hidden{
         display: none;
+    }
+
+    span{
+        font-size: 20px;
+        color: #555;
     }
 </style>

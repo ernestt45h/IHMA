@@ -1,50 +1,60 @@
 <template>
     <div class="container bg-light">
-        <guest-mode :isGuest="userType == 'guest'" @guestmodeoff="reset"></guest-mode>
-        <div class="row">
-            <div id="description" class="row col-md-7 col-lg-8 text-center">
-                <div class="col-sm-3 col-md-3">
-                    <diaga :isLoading="isLoading" class="pull-right" id="diaga" ></diaga>
-                </div>
-                <div v-if="!isLoading" class="text col-sm-9 col-md-9">
-                    <choices :question="question" v-if="question" @go="parseAndGo"></choices>
-                    <div class="parser" v-else>
-                        <h3 class="question">Hi I'm Aihma, How may I help</h3>
-                        <input @keypress.enter="Diagnose" v-model="parser" placeholder="eg. I feel dizzy" class="answer" type="search" autofocus>
-                        <button @click="Diagnose" class="btn btn-primary btn-raised">go</button>
+        <div class="card">
+            <guest-mode :isGuest="userType == 'guest'" @guestmodeoff="reset"></guest-mode>
+            <div class="row">
+                <div id="description" class="row col-md-7 col-lg-8 text-center">
+                    <div class="col-sm-3 col-md-12">
+                        <!-- <diaga :isLoading="isLoading" class="pull-right" id="diaga" ></diaga> -->
+                        <loader :isLoading="isLoading" id="diaga"></loader>
+                        
+                    </div>
+                    <div v-if="!isLoading" class="text col-sm-9 col-md-12">
+                        <choices :question="question" v-if="question" @go="parseAndGo"></choices>
+                        <div class="parser" v-else>
+                            <h3 class="question">Hi I'm Aihma, How may I help</h3>
+                            <input @keypress.enter="Diagnose" v-model="parser" placeholder="eg. I feel dizzy" class="answer" type="search" autofocus>
+                            <button @click="Diagnose" v-if="!parser" class="btn btn-primary btn-raised">
+                                <i class="fa fa-microphone"></i>
+                            </button>
+                            <button @click="Diagnose" v-else class="btn btn-primary btn-raised">
+                                <i class="fa fa-chevron-right"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-5 col-lg-4">          
-                <vs-card>
-                    <vs-card-header vs-background-color="#00bcd4" vs-title="Possible Diagnosis" >
-                        <i class="fa fa-stethoscope"></i>
-                    </vs-card-header>
-                    <vs-card-body>
-                    <ul v-if="conditions"  class="list-group ">
-                        <li v-for="condition in conditions" :key="condition.id" class="list-group-item">
-                            <div class="row">
-                                <p class="col-9">{{condition.name}}</p>
-                                <p class="text-muted col-3" :class="{'alert-success': condition.probability > .9}"> {{ (condition.probability * 100).toFixed(2)  }}%</p>
-                            </div>
-                        </li>
-                        <button class="btn btn-raised btn-info" @click="restartDiag">Restart diagnosis</button>
-                    </ul>
-                    <div v-else>
-                        <vs-alert vs-active="true">
-                            <h1 class="text-center"><i class="fa fa-info-circle"></i></h1>
-                            <h6>While our content is meticulously assembled and carefully curated by
-                                a board of medical experts, our solution is intended for informational
-                                and educational purposes only and should not be treated as a doctor's
-                                advice, a medical consultation, or a diagnosis.
-                            </h6>
-                        </vs-alert>
-                    </div>
-                    </vs-card-body>
-                </vs-card>
+                <!-- <div class="col-md-5 col-lg-4">          
+                    <vs-card>
+                        <vs-card-header vs-background-color="#00bcd4" vs-title="Possible Diagnosis" >
+                            <i class="fa fa-stethoscope"></i>
+                        </vs-card-header>
+                        <vs-card-body>
+                        <ul v-if="conditions"  class="list-group ">
+                            <li v-for="condition in conditions" :key="condition.id" class="list-group-item">
+                                <div class="row">
+                                    <p class="col-9">{{condition.name}}</p>
+                                    <p class="text-muted col-3" :class="{'alert-success': condition.probability > .9}"> {{ (condition.probability * 100).toFixed(2)  }}%</p>
+                                </div>
+                            </li>
+                            <button class="btn btn-raised btn-info" @click="restartDiag">Restart diagnosis</button>
+                        </ul>
+                        <div v-else>
+                            <vs-alert vs-active="true">
+                                <h1 class="text-center"><i class="fa fa-info-circle"></i></h1>
+                                <h6>While our content is meticulously assembled and carefully curated by
+                                    a board of medical experts, our solution is intended for informational
+                                    and educational purposes only and should not be treated as a doctor's
+                                    advice, a medical consultation, or a diagnosis.
+                                </h6>
+                            </vs-alert>
+                        </div>
+                        </vs-card-body>
+                    </vs-card>
+                </div> -->
             </div>
         </div>
-        {{evidences}}
+
+        <!-- {{evidences}} -->
         <choice-popup :active="popup.default" @genderAgeSetted="setStatus" @canceled="popup.default = false"></choice-popup>
     </div>
 </template>
@@ -55,12 +65,13 @@ import host from "../../../config/host"
 const ChoicePopup = ()=>import('./ChoisePopup')
 const GuestMode = ()=>import('./GuestMode')
 const Choices = ()=>import('./Choices')
+const Loader = ()=>import('../misc/splash_loader.vue')
 
 
 export default {
 
   name: 'Aihma',
-  components: {Diaga, ChoicePopup, GuestMode, Choices},
+  components: {Diaga, ChoicePopup, GuestMode, Choices, Loader},
   data(){
       return {
           isLoading: false,
@@ -241,6 +252,10 @@ export default {
 
     #gender-select{
         margin-top: 3px;
+    }
+
+    .card{
+        height: calc(100vh - 120px);
     }
 
 </style>

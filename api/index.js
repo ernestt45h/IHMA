@@ -11,7 +11,7 @@ app.use(bodyParser.json())
 app.use(cors())
 app.use(morgan("short"))
 
-app.use(express.static(__dirname + '/public'));
+app.use('/', express.static( __dirname + '/public' ));
 
 mongoose.connect(db.name,(err)=>{
     if(err){

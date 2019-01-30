@@ -16,7 +16,7 @@ html, body{
 	font-family: 'Roboto', sans-serif;
     font-size: 100%;
     overflow-x: hidden;
-    background: #f4f7f9;
+    background: #fff;
 }
 body a{
 	transition: 0.5s all ease;
@@ -264,7 +264,8 @@ body a:hover{
 			-webkit-transition: width .05s linear;
 			transition: width .05s linear;
 			-webkit-transform: translateZ(0) scale(1,1);
-			background: #00bcd4;
+            /* background: #00bcd4; */
+            background: linear-gradient(180deg, #00bcd4, #00bcd4, #00d4b1 );
 			z-index: 11;
 		}
 		nav.main-menu>ul{margin:7px 0}

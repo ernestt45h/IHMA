@@ -2,10 +2,10 @@
 const express = require('express')
 const route = express.Router()
 const auth = require('../JwtAuth')
-const pres = require('../../public/test/morning.json')
+// const pres = require('../../public/test/morning.json')
 
-route.get('/', (req, res)=>{
-    res.json(pres)
-})
+// route.get('/', (req, res)=>{
+//     res.json(pres)
+// })
 
 module.exports = route

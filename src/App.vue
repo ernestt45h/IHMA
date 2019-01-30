@@ -4,11 +4,11 @@
     <section class="wrapper scrollable">
       <top-nav></top-nav>
       <div class="spacer">
-        <transition name="fade" mode="out-in">
+        <fade-transition mode="out-in">
             <keep-alive>
               <router-view/>
             </keep-alive>
-       </transition>
+        </fade-transition>
       </div>
     </section>
   </div>
@@ -60,13 +60,15 @@ export default {
 }
 </script>
 <style>
+/* 
   .fade-enter-active, .fade-leave-active {
     transition: opacity .1s
   }
-  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  .fade-enter, .fade-leave-to 
+  {
     opacity: 0
   }
   .spacer{
     margin-top: 20px;
-  }
+  } */
 </style>

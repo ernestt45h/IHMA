@@ -7,6 +7,7 @@ import router from './router'
 import {sync} from 'vuex-router-sync'
 import store from './store';
 import iview from 'iview'
+import locale from 'iview/dist/locale/en-US';
 import bootstrap from 'bootstrap'
 import transition from 'vue2-transitions'
 
@@ -40,7 +41,7 @@ Vue.filter('captilize', (val)=>{
 })
 
 Vue.use(Vuex)
-Vue.use(iview)
+Vue.use(iview, {locale})
 Vue.use(transition)
 Vue.use(firebase)
 

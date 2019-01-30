@@ -9,10 +9,14 @@
                     <Input placeholder="Name" type="text" v-model="detail.name" />
                 </Col>
                 <Col class="input" :xs="20">
-                    <Input placeholder="Age" type="date" v-model="detail.name" />
+                    <DatePicker type="date" placeholder="Date Of Birth" style="width: 100%"></DatePicker>
                 </Col>
                 <Col class="input" :xs="20">
-                    <Input placeholder="Gender" v-model="detail.name" />
+                    <Select style="width:100%">
+                        <Option value="male">Male</Option>
+                        <Option value="female">Female</Option>
+                        <Option value="both">Transgender</Option>
+                    </Select>
                 </Col>
             </Row>
         </Col>
@@ -20,10 +24,10 @@
         <template v-if="isEditable">
             <Row :gutter="16">
                 <Col :xs="12">
-                    <Button long type="warning" icon="md-lock">Password</Button>
+                    <Button long >Cancel</Button>
                 </Col>
                 <Col :xs="12">
-                    <Button @click="isEditable = !isEditable" long type="info" icon="ios-brush">Edit</Button>
+                    <Button @click="isEditable = !isEditable" long type="info" >Save</Button>
                 </Col>
             </Row>
         </template>

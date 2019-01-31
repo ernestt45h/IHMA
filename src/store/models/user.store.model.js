@@ -26,6 +26,9 @@ export default {
 
         getDetails(state){
             return state.details
+        },
+        getAgeTimestamp(state){
+            return state.details.age.seconds || ''
         }
     },
 
@@ -71,15 +74,25 @@ export default {
         },
 
         async fetchDetails({commit, getters}){
-            await App.$db.collection('user').doc(getters.getUID)
-            .onSnapshot((snapshot)=>{
+            let token = getters.getUID
+            console.log(token);
+            
+            return App.$db.collection('user').doc(token)
+            .get().then((snapshot)=>{
                 let details = snapshot.data()
                 console.log('fetched user details', details)
                 if(!details) return
                 else {
-                    commit('user/setDetails', )
+                    commit('setDetails', details)
                     return details
                 } 
+            })
+        },
+
+        async updateDetails({commit, getters}, payload){
+            await App.$db.collection('user').doc(getters.getUID)
+            .set(payload).then(_=>{
+                commit('setDetails', payload)
             })
         }
     }

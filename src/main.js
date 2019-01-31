@@ -14,6 +14,7 @@ import transition from 'vue2-transitions'
 import 'bootstrap/dist/css/bootstrap.css'
 import './assets/css/style.css'
 import 'iview/dist/styles/iview.css'
+// import '@ionic/pwa-elements'
 // Remember to change font awesome to iview's icons
 import 'font-awesome/css/font-awesome.min.css'
 import firebase from "./plugins/firebase";

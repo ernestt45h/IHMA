@@ -7,7 +7,7 @@
         </div>
         <div class="pull-right">
             <a v-on:click="show()" v-bind:class="{active: isShowMenu}" class="main-menu-access btn">
-                <i class="fa fa-bars"></i>
+                <Icon type="ios-more"/>
             </a>
         </div>
     </nav>
@@ -54,12 +54,12 @@
         <ul class="logout">
             <li>
             <li>
-                <a href="/profile">
+                <router-link :to="{name: 'UserProfile'}">
                     <i class="fa fa-user nav-icon"></i>
                     <span class="nav-text">
 			Profile
 			</span>
-                </a>
+                </router-link>
             </li>
             <li>
                 <a href="/settings">

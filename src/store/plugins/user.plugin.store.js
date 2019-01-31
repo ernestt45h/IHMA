@@ -7,13 +7,13 @@ export default store => {
         switch (mutation.type){
             // ? Set User credentials
             case 'user/setCredentials': 
-                Storage('user/credentials', mutation.payload)
+                Storage('user/credentials', mutation.payload || {})
                 break
             
 
             // ? Set User Details
-            case 'user/setCredentials': 
-                Storage('user/details', mutation.payload)
+            case 'user/setDetails': 
+                Storage('user/details', mutation.payload || {})
                 break
         
         }

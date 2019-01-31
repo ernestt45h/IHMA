@@ -1,0 +1,6 @@
+{
+  "appId": "com.oneinvader.care.plus",
+  "appName": "OneCare Plus",
+  "bundledWebRuntime": false,
+  "webDir": "dist"
+}

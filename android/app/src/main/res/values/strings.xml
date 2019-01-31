@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">OneCare Plus</string>
+    <string name="title_activity_main">OneCare Plus</string>
+    <string name="package_name">com.oneinvader.care.plus</string>
+    <string name="fileprovider_authority">com.oneinvader.care.plus.fileprovider</string>
+    <string name="custom_url_scheme">com.oneinvader.care.plus</string>
+</resources>

@@ -3,7 +3,6 @@
         <div>
             <div class="container">
                 <div class="grid-info row">
-                    asdasdads
                     <!-- <router-link v-for="tab of tabs" :key="tab.name"  :to="'/'+tab.sub_name" v-if="isView(tab.actions)" class="col-sm-6 col-md-4 col-lg-4">
                         <div class="top-comment-grid">
                             <div class="comments" :class="colorPallet[Math.floor(Math.random()*colorPallet.length)]">

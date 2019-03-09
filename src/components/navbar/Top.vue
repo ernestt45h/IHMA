@@ -2,7 +2,7 @@
     <div id="topnav" v-if="isVissible">
         <section class="title-bar">
             <div class="logo" id="logo">
-                <router-link to="/"><img height="72px" src="../../assets/logo.png" alt="" /></router-link>
+                <router-link to="/"><img height="72px" src="../../assets/logo.svg" alt="" /></router-link>
                 <span>OneCare Plus</span>
             </div>
             

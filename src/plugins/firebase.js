@@ -1,18 +1,21 @@
-import { 
-    app, 
-    initializeApp,
-    firestore, 
-    auth
-} from 'firebase'
+// import { 
+//     initializeApp,
+//     firestore, 
+//     auth
+// } from 'firebase'
+
+import app from 'firebase/app'
+require('firebase/auth')
+require('firebase/firestore')
 
 // Import firebase configs
 import configs from '../../config/settings'
 const FirebaseConfig = configs.firebase
 
 // initialize firebase
-initializeApp(FirebaseConfig)
+app.initializeApp(FirebaseConfig)
 
-const db = firestore()
+const db = app.firestore()
 
 // ? Enable Offline support
 db.enablePersistence()
@@ -20,6 +23,6 @@ db.enablePersistence()
 export default {
     install: function(Vue, options){
         Vue.prototype.$db = db
-        Vue.prototype.$auth = auth()
+        Vue.prototype.$auth = app.auth()
     }
 }

@@ -1,0 +1,57 @@
+[
+    {
+        "id": "p_28",
+        "name": "I smoke",
+        "common_name": "Smoking",
+        "sex_filter": "both",
+        "category": "Risk factors",
+        "seriousness": "normal",
+        "extras": {},
+        "image_url": null,
+        "image_source": null
+    },
+    {
+        "id": "p_10",
+        "name": "I have high cholesterol",
+        "common_name": "High cholesterol",
+        "sex_filter": "both",
+        "category": "Risk factors",
+        "seriousness": "normal",
+        "extras": {},
+        "image_url": null,
+        "image_source": null
+    },
+    {
+        "id": "p_9",
+        "name": "I have hypertension",
+        "common_name": "High blood pressure",
+        "sex_filter": "both",
+        "category": "Risk factors",
+        "seriousness": "normal",
+        "extras": {},
+        "image_url": null,
+        "image_source": null
+    },
+    {
+        "id": "p_8",
+        "name": "I have diabetes",
+        "common_name": "Diabetes",
+        "sex_filter": "both",
+        "category": "Risk factors",
+        "seriousness": "normal",
+        "extras": {},
+        "image_url": null,
+        "image_source": null
+    },
+    {
+        "id": "p_38",
+        "name": "Frequent alcohol consumption",
+        "common_name": "Frequent alcohol consumption",
+        "sex_filter": "both",
+        "category": "Risk factors",
+        "seriousness": "normal",
+        "extras": {},
+        "image_url": null,
+        "image_source": null
+    }
+]

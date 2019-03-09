@@ -1,0 +1,111 @@
+[{
+    "id": "p_19",
+    "name": "Recent travel to Australia and Oceania",
+    "common_name": "Recent travel to Australia and Oceania",
+    "sex_filter": "both",
+    "category": "Risk factors",
+    "seriousness": "normal",
+    "extras": {},
+    "image_url": null,
+    "image_source": null
+  },
+  {
+    "id": "p_17",
+    "name": "Recent travel to Central Africa",
+    "common_name": "Recent travel to Central Africa",
+    "sex_filter": "both",
+    "category": "Risk factors",
+    "seriousness": "normal",
+    "extras": {},
+    "image_url": null,
+    "image_source": null
+  },
+  {
+    "id": "p_15",
+    "name": "Recent travel to Europe",
+    "common_name": "Recent travel to Europe",
+    "sex_filter": "both",
+    "category": "Risk factors",
+    "seriousness": "normal",
+    "extras": {},
+    "image_url": null,
+    "image_source": null
+  },
+  {
+    "id": "p_14",
+    "name": "Recent travel to Latin or South America",
+    "common_name": "Recent travel to Latin or South America",
+    "sex_filter": "both",
+    "category": "Risk factors",
+    "seriousness": "normal",
+    "extras": {},
+    "image_url": null,
+    "image_source": null
+  },
+  {
+    "id": "p_16",
+    "name": "Recent travel to Northern Africa",
+    "common_name": "Recent travel to Northern Africa",
+    "sex_filter": "both",
+    "category": "Risk factors",
+    "seriousness": "normal",
+    "extras": {},
+    "image_url": null,
+    "image_source": null
+  },
+  {
+    "id": "p_20",
+    "name": "Recent travel to Russia, Kazakhstan or Mongolia",
+    "common_name": "Recent travel to Russia, Kazakhstan or Mongolia",
+    "sex_filter": "both",
+    "category": "Risk factors",
+    "seriousness": "normal",
+    "extras": {},
+    "image_url": null,
+    "image_source": null
+  },
+  {
+    "id": "p_18",
+    "name": "Recent travel to Southern Africa",
+    "common_name": "Recent travel to Southern Africa",
+    "sex_filter": "both",
+    "category": "Risk factors",
+    "seriousness": "normal",
+    "extras": {},
+    "image_url": null,
+    "image_source": null
+  },
+  {
+    "id": "p_22",
+    "name": "Recent travel to Southwestern Asia",
+    "common_name": "Recent travel to Southwestern Asia",
+    "sex_filter": "both",
+    "category": "Risk factors",
+    "seriousness": "normal",
+    "extras": {},
+    "image_url": null,
+    "image_source": null
+  },
+  {
+    "id": "p_21",
+    "name": "Recent travel to the Middle East",
+    "common_name": "Recent travel to the Middle East",
+    "sex_filter": "both",
+    "category": "Risk factors",
+    "seriousness": "normal",
+    "extras": {},
+    "image_url": null,
+    "image_source": null
+  },
+  {
+    "id": "p_13",
+    "name": "Recent travel to the United States or Canada",
+    "common_name": "Recent travel to the United States or Canada",
+    "sex_filter": "both",
+    "category": "Risk factors",
+    "seriousness": "normal",
+    "extras": {},
+    "image_url": null,
+    "image_source": null
+  }
+]

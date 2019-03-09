@@ -13,6 +13,7 @@ yarn-error.log*
 
 **/node_modules/**
 
+ngrok.exe
 
 # Editor directories and files
 .idea

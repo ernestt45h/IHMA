@@ -1,16 +1,23 @@
 const express = require('express')
-const bodyParser = require('body-parser')
-const cors = require('cors')
-const app = express()
+var bodyParser = require('body-parser')
+var cors = require('cors')
+var app = express()
 
-app.use(bodyParser.json())
-app.use(cors())
+app.use(bodyParser.json());
+app.use(cors());
 
+var aihma = require('./models/infermedica');
+var payments = require('./models/payments');
 //Do something like geolocation calculation
 
-app.all('*', (req,res)=>{
-    res.send('Hello function')
-})
+app.use('/aihma', aihma);
+app.use('/payment', payments);
+
+
+
+app.use('/', ( req, res ) => {
+    res.send('Hello functio');
+});
 
 
 module.exports = app

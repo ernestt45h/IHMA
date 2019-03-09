@@ -8,11 +8,11 @@
         <section class="wrapper scrollable">
         <top-nav></top-nav>
         <div class="spacer">
-            <fade-transition mode="out-in">
-                <keep-alive>
+            <slide-y-up-transition mode="out-in">
+                <!-- <keep-alive> -->
                     <router-view/>
-                </keep-alive>
-            </fade-transition>
+                <!-- </keep-alive> -->
+            </slide-y-up-transition>
         </div>
         </section>
     </template>
@@ -63,5 +63,13 @@ export default {
 
     *{
         font-family: 'Montserrat', sans-serif;
+    }
+    
+    .spacer{
+        background: #fff;
+        /* background: url('../../assets/svg/SVG/right.svg'), url('../../assets/svg/SVG/left.svg'), #fff; */
+        /* background-size: 72px;
+        background-repeat: no-repeat;
+        background-position: top right, bottom left; */
     }
 </style>

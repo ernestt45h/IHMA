@@ -89,15 +89,31 @@ export default new Router({
     {
       path: '/login',
       name: 'Login',
-      component: _=>import('../views/Auth/Login.vue')
+      component: _=>import(/* webpackChunkName: "Login" */ '../views/Auth/Login.vue'),
+      beforeEnter: (to, from, next) => {
+        if(!store.getters['user/isAuth'])
+          next()
+        else next({name: 'Dashboard'})
+      }
     },
     {
-      path: '/', 
-      name: 'App',
-      component: _=>import('../views/App'),
+      path: '/',
+      component: _=>import( /* webpackChunkName: "App" */ '../views/App'),
       children:[
-        {path: '/', name: 'Dashboard', component: _=>import('../views/App/Dashboard')},
-        {path: '/user-profile', name: 'UserProfile', component: _=>import('../views/App/UserProfile')},
+        {path: '/', name: 'Dashboard', component: _=>import(/* webpackChunkName: "Dash" */  '../views/App/Dashboard')},
+        {path: '/user-profile', name: 'UserProfile', component: _=>import( /* webpackChunkName: "UserProfile" */ '../views/App/UserProfile')},
+        {path: '/diagnosis', component: _=>import( /* webpackChunkName: "Diagnosis" */ '../views/App/Diagnosis'), children: [
+          {path: '/', name: 'DiagnosisIntro', component: _=>import('../views/App/Diagnosis/Intro.vue')},
+          {path: 'terms-and-conditions', name: 'DiagnosisTC', component: _=>import('../views/App/Diagnosis/T&C.vue')},
+          {path: 'profile-selection', name: 'DiagnosisProfileSelection', component: _=>import('../views/App/Diagnosis/ProfileSelection.vue')},
+          {path: 'user-age', name: 'DiagnosisUserAge', component: _=>import('../views/App/Diagnosis/Age.vue')},
+          {path: 'user-gender', name: 'DiagnosisUserGender', component: _=>import('../views/App/Diagnosis/Sex.vue')},
+          {path: 'symptoms', name: 'DiagnosisSymptoms', component: _=>import('../views/App/Diagnosis/NLP.vue')},
+          {path: 'risk_factors', name: 'DiagnosisRiskFactors', component: _=>import('../views/App/Diagnosis/RiskFactors.vue')},
+          {path: 'suggest', name: 'DiagnosisSuggest', component: _=>import('../views/App/Diagnosis/Suggestion.vue')},
+          {path: 'diagnose', name: 'DiagnosisDiagnose', component: _=>import('../views/App/Diagnosis/Diagnose')},
+          {path: 'triage', name: 'DiagnosisTriage', component: _=>import('../views/App/Diagnosis/Triage')},
+        ]},
       ],
       beforeEnter: (to, from, next) => {
         if(store.getters['user/isAuth'])

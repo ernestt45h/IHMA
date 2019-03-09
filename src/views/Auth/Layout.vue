@@ -32,6 +32,8 @@ export default {
 
     #layout{
         height: 100vh;
-        background: url('../../assets/svg/bg.svg')
+        background: url('../../assets/svg/bg.svg');
+        background-position: center;
+        background-size: cover;
     }
 </style>

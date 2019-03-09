@@ -3257,7 +3257,7 @@ tbody.collapse.show {
   background-size: 1rem 1rem; }
 
 .progress-bar-animated {
-  animation: progress-bar-stripes 1s linear infinite; }
+  -webkit-animation: progress-bar-stripes 1s linear infinite; }
 
 .media {
   display: flex;
@@ -8004,10 +8004,10 @@ label.checkbox-inline {
         content: "";
         box-shadow: 0 0 0 0, 0 0 0 0, 0 0 0 0, 0 0 0 0, 0 0 0 0, 0 0 0 0, 0 0 0 0 inset;
         transform: rotate(45deg);
-        animation: checkbox-off; }
+        -webkit-animation: checkbox-off; }
         .is-focused .checkbox label .checkbox-decorator .check::before, .is-focused
         label.checkbox-inline .checkbox-decorator .check::before {
-          animation: checkbox-off 0.3s forwards; }
+          -webkit-animation: checkbox-off 0.3s forwards; }
   .checkbox label input[type=checkbox],
   label.checkbox-inline input[type=checkbox] {
     position: absolute;
@@ -8030,7 +8030,7 @@ label.checkbox-inline {
     label.checkbox-inline input[type=checkbox]:checked + .checkbox-decorator .check::before {
       color: #009688;
       box-shadow: 0 0 0 10px, 10px -10px 0 10px, 32px 0 0 20px, 032px 0 20px, -5px 5px 0 10px, 20px -12px 0 11px;
-      animation: checkbox-on 0.3s forwards; }
+      -webkit-animation: checkbox-on 0.3s forwards; }
     .checkbox label input[type=checkbox][disabled] + .checkbox-decorator .check::after,
     .checkbox label input[type=checkbox][disabled] .check::after,
     fieldset[disabled] .checkbox label input[type=checkbox] + .checkbox-decorator .check::after,
@@ -9657,10 +9657,10 @@ h6 {
     .dropdown-menu {
       padding: .5rem 0; } }
   .dropdown-menu.showing {
-    animation-name: bmd-dropdown-animation;
-    animation-duration: 0.3s;
-    animation-fill-mode: forwards;
-    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+    -webkit-animation-name: bmd-dropdown-animation;
+    -webkit-animation-duration: 0.3s;
+    -webkit-animation-fill-mode: forwards;
+    -webkit-animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
   .open > .dropdown-menu, .dropdown-menu.show {
     display: block;
     opacity: 1;

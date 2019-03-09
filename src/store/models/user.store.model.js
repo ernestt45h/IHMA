@@ -1,14 +1,11 @@
 import App from '../../main'
 
-function Storage(key){
-    return JSON.parse(localStorage.getItem('ocp/'+key))
-}
 
-export default {
+export default storage => ({
     namespaced: true,
     state:{
-        credentials: Storage('user/credentials') || {},
-        details: Storage('user/details') || {}
+        credentials: storage.get('user/setCredentials') || {},
+        details: storage.get('user/setDetails') || {}
     },
 
     getters:{
@@ -28,7 +25,7 @@ export default {
             return state.details
         },
         getAgeTimestamp(state){
-            return state.details.age.seconds || ''
+            return state.details.age ? state.details.age.seconds : ''
         }
     },
 
@@ -46,7 +43,7 @@ export default {
             await App.$auth.signInWithEmailAndPassword(user.email, user.password)
             .then(cred=>{
                 commit('setCredentials', cred.user)
-                App.$router.push({name: 'App'})
+                App.$router.push({name: 'Dashboard'})
             })
             .catch(error=>{
                 App.$Message.warning({
@@ -65,6 +62,7 @@ export default {
                 App.$router.push({name: 'Login'})
             })
             .catch(_=>{
+                console.log(_);
                 App.$Message.error({
                     content: 'Failed to sign out user',
                     duration: 0,
@@ -93,7 +91,7 @@ export default {
             await App.$db.collection('user').doc(getters.getUID)
             .set(payload).then(_=>{
                 commit('setDetails', payload)
-            })
+            }).catch(err=>{throw err})
         }
     }
-}
+})

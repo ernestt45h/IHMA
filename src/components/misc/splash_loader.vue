@@ -1,7 +1,7 @@
 <template>
     <div class="splash">
         <div class="holder">
-            <img id="heart" @click="isLoading = !isLoading" :class="{animate: isLoading}" src="../../assets/logo.png">
+            <img id="heart" :class="{animate: isLoading}" src="../../assets/logo.svg">
         </div>
     </div>
 </template>
@@ -18,12 +18,13 @@ export default {
     img{
         margin-top: 0px;
         height: 150px;
+        margin-right: 10px;
     }
 
     @media screen and (max-width: 425px) {
         img{
             margin-top: 0px;
-            height: 72px;
+            height: 100px;
         }
     }
 

@@ -5,9 +5,7 @@
       <top-nav></top-nav>
       <div class="spacer">
         <fade-transition mode="out-in">
-            <keep-alive>
-              <router-view/>
-            </keep-alive>
+            <router-view/>
         </fade-transition>
       </div>
     </section>
@@ -60,6 +58,7 @@ export default {
 }
 </script>
 <style>
+
 /* 
   .fade-enter-active, .fade-leave-active {
     transition: opacity .1s

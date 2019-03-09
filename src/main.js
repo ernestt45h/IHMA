@@ -8,17 +8,15 @@ import {sync} from 'vuex-router-sync'
 import store from './store';
 import iview from 'iview'
 import locale from 'iview/dist/locale/en-US';
-import bootstrap from 'bootstrap'
 import transition from 'vue2-transitions'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import './assets/css/style.css'
 import 'iview/dist/styles/iview.css'
-// import '@ionic/pwa-elements'
+
 // Remember to change font awesome to iview's icons
 import 'font-awesome/css/font-awesome.min.css'
 import firebase from "./plugins/firebase";
-
 
 // Vue.filter('simpleDate', (val)=>{
 //   if(val){
@@ -41,16 +39,13 @@ Vue.filter('captilize', (val)=>{
   }
 })
 
+Vue.use(transition)
 Vue.use(Vuex)
 Vue.use(iview, {locale})
-Vue.use(transition)
 Vue.use(firebase)
 
 sync(store, router)
 
-// export const bus = new Vue()
-
-// Vue.config.ignoredElements = [/^ion-/]
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

@@ -68,14 +68,18 @@ export default {
     },
     methods:{
 
+        addQusetion(question){
+            this.$store.commit('diagnosis/addEvidence', question)
+        },
+
         diagnose(){
             this.$emit('loading', this.isLoading = true)
             this.$store.dispatch('diagnosis/diagnose')
             .then((result) => {
                 this.count++
                 if((this.count > 7 || result.should_stop)){
-                    this.$store.commit('diagnosis/setCurrentConditions', result.conditions)
                     this.$router.push({name: 'DiagnosisTriage'})
+                    this.$store.commit('diagnosis/setCurrentConditions', result.conditions)
                 }else
                     this.result = result
                     this.$emit('loading', this.isLoading = false)
@@ -98,11 +102,14 @@ export default {
 
         processSingle(id, choice_id){
             let symptom = [{id, choice_id}]
+            this.addQusetion({...symptom, question: this.result.question.text})
             this.process(symptom)            
         },
 
         processGroupSingle(id){
+            
             let choice = [{ id, choice_id: 'present' }]
+            this.addQusetion({...choice, question: this.result.question.text})            
             this.process(choice)
         },
 
@@ -113,7 +120,7 @@ export default {
             items.forEach(symptom=>{
                 choices.push({id: symptom.id, choice_id: 'unknown'})
             })
-
+            this.addQusetion({...items, question: this.result.question.text})
             this.process(choices)
         },
 
@@ -122,7 +129,7 @@ export default {
                 choice_id: choice.ans,
                 id: choice.id
             }))
-            
+            this.addQusetion({...this.result.question.items, question: this.result.question.text})
             this.process(filtered)
         }
 

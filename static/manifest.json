@@ -1,7 +1,7 @@
 {
     "name": "OneCare Plus",
-    "short_name": "onecare",
-    "theme_color": "#ccc",
+    "short_name": "OneCare Plus",
+    "theme_color": "#2db7f5",
     "background_color": "#fff",
     "display": "standalone",
     "orientation": "portrait",

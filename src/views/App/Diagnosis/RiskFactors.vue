@@ -35,12 +35,10 @@ export default {
         hasNext(){
             let hasnext = true
             this.risks.forEach(risk => {
-                console.log(risk.choice_id);
                 if(typeof risk.choice_id == 'undefined') {
                     hasnext = false
                 }
             })
-
             return hasnext
         }
     },
@@ -52,8 +50,17 @@ export default {
             phone: ''
         }
     },
+    created(){
+        let rf = this.$store.getters['diagnosis/getRiskFactors']
+        let current = this.$store.getters['diagnosis/getCurrent']
+        if(rf.length > 0 && current.mode == 'self')
+            this.risks = rf
+    },
     methods:{
         suggestSymptoms(){
+            let current = this.$store.getters['diagnosis/getCurrent']
+            if(current.mode == 'self')
+                this.$store.commit('diagnosis/setUserRiskFactors', this.risks)
             this.$store.commit('diagnosis/addRiskFactors', this.risks)
             this.$router.push({name: 'DiagnosisSuggest'})
         }

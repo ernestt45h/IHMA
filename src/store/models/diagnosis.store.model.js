@@ -1,5 +1,6 @@
 import App from '../../main'
 import Aihma from '../../models/Http'
+import { stat } from 'fs';
 const aihma = new Aihma()
 
 export default storage =>  ({
@@ -13,9 +14,11 @@ export default storage =>  ({
             riskFactors: [],
             suggestions: [],
             symptoms: [],
-            conditions: []
+            conditions: [],
+            date_created: '',
+            questions:[]
         },
-        riskfactors: storage.get('diagnosis/setRiskFactors') || [],
+        riskfactors: storage.get('diagnosis/setUserRiskFactors') || [],
     },
 
     getters:{
@@ -78,8 +81,22 @@ export default storage =>  ({
                 state.current.symptoms.push(symptom)
             });
         },
+
+        setUserRiskFactors(state, rs){
+            console.log('mutating',rs)
+            state.riskFactors = rs
+        },
+
         setCurrentConditions(state, conditions){
             state.current.conditions = conditions
+        },
+
+        setStartTime(state){
+            state.current.date_created = new Date()
+        },
+
+        addEvidence(state, question){
+            state.current.questions.push(question)
         }
     },
 
@@ -119,14 +136,10 @@ export default storage =>  ({
             });
         },
 
-        triage({ getters }, playoad){
+        triage({ getters, rootGetters}, playoad){
             let current = getters.getCurrent
-            let data = {
-                sex: current.sex,
-                age: current.age,
-                evidence: getters.getSymptoms,
-                condition: {...current.conditions[0]}
-            }
+            let data = {...current, uid: rootGetters['user/getUID']}
+            data.evidence = getters.getSymptoms
 
             console.log(data)
             return aihma.req.post('/triage', data)

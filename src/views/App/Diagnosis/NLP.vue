@@ -144,7 +144,7 @@ export default {
     },
     created(){
         
-        console.log(this.symptoms);
+        this.$store.commit('diagnosis/setStartTime')
         let current = this.$store.getters['diagnosis/getCurrent']
         this.person =  current.mode == 'self' ? 'your' : current.sex == 'male' ? 'his' : 'her' 
 

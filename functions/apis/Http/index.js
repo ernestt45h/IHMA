@@ -8,10 +8,12 @@ app.use(cors());
 
 var aihma = require('./models/infermedica');
 var payments = require('./models/payments');
+var diagnosis = require('./models/diagnosis');
 //Do something like geolocation calculation
 
 app.use('/aihma', aihma);
 app.use('/payment', payments);
+app.use('/diagnosis', diagnosis);
 
 
 

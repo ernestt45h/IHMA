@@ -113,12 +113,38 @@ router.post('/diagnose', function(req, res){
 
 
 router.post('/triage', function(req, res){
-  inf.triage(req.body)
-    .then((result) => {
-      res.json(result)
-    }).catch((err) => {
-      res.send(err)
-  });
+  const admin = require('firebase-admin');
+  const functions = require('firebase-functions');
+
+  var current = req.body
+  if (!admin.apps.length){
+    admin.initializeApp(functions.config().firebase)
+    var db = admin.firestore()
+    db.settings({timestampsInSnapshots: true})
+  }else
+    var db = admin.firestore()
+  
+  db.collection('diagnosis').add(current)
+  .then((result) => {
+    var data = {
+        sex: current.sex,
+        age: current.age,
+        evidence: current.evidence,
+        condition: {...current.conditions[0]}
+    }
+
+    inf.triage(data)
+      .then((result) => {
+        res.json(result)
+      }).catch((err) => {
+        throw err
+    });
+    
+  }).catch((err) => {
+    res.send(err)
+  })
+
+  
 })
 
 router.post('/explain', function(req, res){

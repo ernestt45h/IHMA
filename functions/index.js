@@ -4,3 +4,4 @@ const HTTPRequests = require('./apis/Http')
 // https://firebase.google.com/docs/functions/write-firebase-functions
 
 exports.api = functions.https.onRequest(HTTPRequests)
+

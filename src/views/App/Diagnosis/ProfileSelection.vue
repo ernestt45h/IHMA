@@ -25,17 +25,10 @@ export default {
             }else{
                 let age = Math.floor((new Date()- new Date(details.age.toDate()))/(60*60*24*365.25*1000))                
                 let sex = details.gender
-                // this.$store.commit('diagnosis/setMode', 'self')
-                // this.$store.commit('diagnosis/setAge', age)
-                // this.$store.commit('diagnosis/setGender', gender)
-                this.$store.commit('diagnosis/setCurrent', {sex, age, mode: 'self', symptoms: []})
-
-                let risk_factors = this.$store.getters['diagnosis/getRiskFactors']
-                if(risk_factors.length > 0){
-                    //Move to suggestions
-                }else{
-                    //Select risk factors
-                }
+                this.$store.commit('diagnosis/setMode', 'self')
+                this.$store.commit('diagnosis/setAge', age)
+                this.$store.commit('diagnosis/setGender', sex)
+                this.$router.push({name: 'DiagnosisSymptoms'})
             }
         },
         stateOther(){

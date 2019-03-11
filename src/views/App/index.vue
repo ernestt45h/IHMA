@@ -37,7 +37,6 @@ export default {
         
     },
     mounted() {
-        console.log('asadsasd');
         
         this.$store.dispatch('user/fetchDetails')
         .then((details) => {
